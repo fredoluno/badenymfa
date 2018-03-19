@@ -15,11 +15,7 @@ var parseString = require('xml2js').parseString;
 
 admin.initializeApp(functions.config().firebase);
 
-const LOCATION = {
-  // This is Dublin, Ireland 
-  lat: 60.1562,
-  lon: 11.170503
-};
+
 
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
  const pubSubMessage = event.data;
