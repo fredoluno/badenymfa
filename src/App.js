@@ -1,37 +1,47 @@
 import React, { Component } from 'react';
-import {firestore } from './fire';
-import logo from './logo.svg';
+import { Route } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
+import StartPage  from './StartPage';
+import SampleStats  from './SampleStats';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
 
+
 class App extends Component {
-  state = { data: null };
+  state = {open: false};
+  handleToggle = () => this.setState({open: !this.state.open});
   async componentDidMount() {
-    const result = await firestore.collection('samples').orderBy("published_at", "desc").limit(1).get();
-    console.log("-----------------------");
-    console.log(result);
-    console.log("-----------------------3");
-    console.log(result.docs[0].data().tw);
-    console.log("-----------------------4");
-    var data = result.docs[0].data();
-    this.setState({
-      data: data,
-    });
+    console.log("App")
   }
   render() {
-    if (!this.state.data ) { return 'loading...'; }
     return (
-      <div className="App">
-        <ul>
-          
-            <li>
-              <p>Date: 
-               at {new Date(this.state.data.published_at).toLocaleTimeString()}</p>
-              <p>Temperature: {this.state.data.tw}</p>
-            </li>
-          
-        </ul>
-      </div>
+      <BrowserRouter>
+      <MuiThemeProvider>
+   
+        <div class="App">
+        <AppBar
+          title="Badenymfa på Nordbytjnernet"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          onLeftIconButtonClick={this.handleToggle}
+        /> 
+
+        <Drawer open={this.state.open}
+        containerStyle={{height: 'calc(100% - 64px)', top: 64}}>
+          <MenuItem>Hva mener Badenymfa?</MenuItem>
+          <MenuItem>Badetemperatur over tid</MenuItem>
+          <MenuItem>Om Badenymfa</MenuItem>
+        </Drawer>
+
+          <Route exact path="/" component={StartPage} />
+          <Route exact path="/stats" component={SampleStats} />
+        </div>
+        </MuiThemeProvider>
+      </BrowserRouter>
     );
+
   }
 }
 
