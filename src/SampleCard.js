@@ -1,9 +1,35 @@
 import React, { Component } from 'react';
 import {firestore } from './fire';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
+import WarmWater from './weather/WarmWater'
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
+
 
 import './App.css';
+
+
+
+const styles = theme => ({
+  root: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginTop: theme.spacing.unit * 3,
+  }),
+
+  demo: {
+    height: 240,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    height: '100%',
+  },
+  control: {
+    padding: theme.spacing.unit * 2,
+  },
+});
 
 
 class SampleCard extends Component {
@@ -18,23 +44,38 @@ class SampleCard extends Component {
     });
   }
   render() {
-    const style = {
-
-      width: '90%',
-      margin: 20,
-      textAlign: 'center',
-      display: 'inline-block',
-    };  
+    const { classes } = this.props;
     if (!this.state.data ) { return 'loading...'; }
     return (
-    <Paper style={style} zDepth={1} rounded={false} >
-              <h1>{this.state.data.tw} °C</h1>
-              <p> Sist måling gjort  {new Date(this.state.data.published_at).toLocaleTimeString()}</p>
-              
+    <Paper  elevation={4}  >
+      <Grid container alignItems="center">
+      <Grid item xs={12}>
+                <Typography variant="display1" gutterBottom>
+                  Badetemperatur
+                </Typography>
+        </Grid>
+        <Grid item xs={6} >
+          <WarmWater height="200" width="100%" />
+        </Grid>
+        <Grid item xs={6}>
+                <Typography variant="display4" gutterBottom>
+                  {Math.round(this.state.data.tw)}°
+                </Typography>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+        
+                <Typography variant="body1" gutterBottom align="center">
+                  Sist måling gjort  {new Date(this.state.data.published_at).toLocaleTimeString()}. {this.state.data.p}% power.
+                </Typography>
+        </Grid>       
+      </Grid>       
     </Paper>
      
     );
   }
 }
+SampleCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default SampleCard;
+export default withStyles(styles)(SampleCard);

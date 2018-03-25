@@ -5,10 +5,28 @@ import StartPage  from './StartPage';
 import SampleStats  from './SampleStats';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
 
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 class App extends Component {
   state = {open: false};
@@ -17,22 +35,35 @@ class App extends Component {
     console.log("App")
   }
   render() {
+    const { classes } = this.props;
     return (
       <BrowserRouter>
       <MuiThemeProvider>
-   
-        <div class="App">
+    
+        <div className="App">
         <AppBar
           title="Badenymfa på Nordbytjnernet"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onLeftIconButtonClick={this.handleToggle}
         /> 
 
+        <AppBar position="static">
+        <Toolbar>
+          <IconButton className={classes.menuButton}  color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="title" color="inherit" className={classes.flex}>
+            Badenymfa
+          </Typography>
+          
+        </Toolbar>
+      </AppBar>
+
         <Drawer open={this.state.open}
         containerStyle={{height: 'calc(100% - 64px)', top: 64}}>
-          <MenuItem>Hva mener Badenymfa?</MenuItem>
-          <MenuItem>Badetemperatur over tid</MenuItem>
-          <MenuItem>Om Badenymfa</MenuItem>
+
+
+          
         </Drawer>
 
           <Route exact path="/" component={StartPage} />
@@ -44,5 +75,8 @@ class App extends Component {
 
   }
 }
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default App;
+export default withStyles(styles)(App);
