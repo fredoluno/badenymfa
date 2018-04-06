@@ -5,6 +5,8 @@ import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
+import WeatherSymbol from './WeatherSymbol'
+import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
     root: {
@@ -15,7 +17,12 @@ const styles = theme => ({
     },
     paper: {
       padding: theme.spacing.unit * 2,
-      height: '100%',
+      
+     
+
+    },
+    test:{
+      marginBottom:0,
     },
     control: {
       padding: theme.spacing.unit * 2,
@@ -26,36 +33,46 @@ const styles = theme => ({
 class WeatherCard extends Component {
     state = { data: null };
     async componentDidMount() {
-        //orderBy("lastupdate", "desc").
-        const result = await firestore.collection('weather-YR').limit(1).get();
-        console.log(result.docs[0].data());//.docs[0].data());
+        //
+        const result = await firestore.collection('weather-simple').orderBy("lastupdate", "desc").limit(1).get();
+        console.log(result);
         var data = result.docs[0].data();
+        console.log("værdata ",data);
         this.setState({
           data: data,
         });
       }
   render() {
-    const style  = theme => ({
-        padding: theme.spacing.unit * 2,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }); 
-    if (!this.state.data ) { return 'loading...'; }   
+    const { classes } = this.props;
+
+    if (!this.state.data ) { return (<CircularProgress className={classes.progress} size={50} />) }   
     return (
+
+      <Paper  elevation={4} className={classes.paper} >
+      <Grid container alignItems="center" justify="center" >
+      <Grid item xs={12}>
+                <Typography variant="display1" gutterBottom >
+                  Været
+                </Typography>
+        </Grid>
+        <Grid item  >
+        <WeatherSymbol description={this.state.data.symbol.$.name} symbol={this.state.data.symbol.$.number}/>
+        </Grid>
+        <Grid item >
+                <Typography variant="display4" className={classes.test} gutterBottom>
+                {this.state.data.temperature}°
+                </Typography>
+        </Grid>
+        <Grid item xs={12} sm={12}>
         
-        <Paper elevation={4} >
-        <Typography variant="display1" gutterBottom align="center">
-        Værmelding
-        </Typography>
-        <Typography variant="headline" gutterBottom align="center">
-            {this.state.data.weatherdata.forecast["0"].text["0"].location["0"].time["0"].body["0"]}
-        </Typography>
-        <Typography variant="body1" gutterBottom align="center">
-        Temp: {this.state.data.weatherdata.forecast["0"].tabular["0"].time["0"].temperature["0"].$.value} 
-        klokken: {this.state.data.weatherdata.forecast["0"].tabular["0"].time["0"].$.from}
-        </Typography>
-        
-        </Paper>
+                <Typography variant="caption" gutterBottom align="center">
+                Værvarsel fra <a href={this.state.data.link} >Yr levert av Meteorologisk institutt og NRK</a>, og gjelder fra {this.state.data.time.from.toLocaleTimeString()} til {this.state.data.time.to.toLocaleTimeString()}
+                </Typography>
+        </Grid>       
+      </Grid>       
+    </Paper>
+      
+  
     );
 
   }

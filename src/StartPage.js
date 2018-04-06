@@ -9,11 +9,12 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({
     root: {
       flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing.unit * 2,
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
+      margin: 'auto',
+    },    
+
+    fredrik:{
+      flexGrow: 1,
+      margin: '8px',
     },
   });
 
@@ -22,16 +23,19 @@ function StartPage(props) {
     const { classes } = props;
     return (
         <div className={classes.root}>
-        <Grid container spacing={8}  alignItems="center">
+        <Grid container justify="center" alignItems="Stretch" spacing={8}  className={classes.root} alignItems="stretch"  >
             <Grid item xs={12}>
-            <Typography variant="display1" gutterBottom>
+            <Typography variant="display1" >
                   Nordbytjernet
             </Typography>
+            <Typography variant="caption" >
+                  Badenymfa gjør jobben med å finne ut hvor kaldt det er i vannet, så du slipper å dyppe tåa.
+            </Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={11} sm={5} md={4} >
                 <SampleCard />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={11} sm={5} md={4} >
                 <WeatherCard />
             </Grid>    
         </Grid>
