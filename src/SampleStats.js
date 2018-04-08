@@ -6,7 +6,9 @@ import Paper from 'material-ui/Paper';
 import thermometer from './weather/thermometer.svg'
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import { LineChart, Line, YAxis } from 'recharts';
+import { LineChart, Line, YAxis, XAxis,ResponsiveContainer } from 'recharts';
+import moment from 'moment'
+import Button from 'material-ui/Button';
 
 
 import './App.css';
@@ -20,6 +22,9 @@ const styles = theme => ({
     paddingBottom: 16,
     marginTop: theme.spacing.unit * 3,
   }),
+  button: {
+    margin: theme.spacing.unit,
+  },
 
   freddan:{
     fontSize: '7rem',
@@ -42,34 +47,120 @@ const styles = theme => ({
 
 class SampleStats extends Component {
   state = { data: null };
-  
-  async componentDidMount() {
-    const result = await firestore.collection('samples').orderBy("published_at", "desc").limit(100).get();
+  constructor(props) {
+    super(props);
+  this.today = this.today.bind(this);
+  this.sevenDay = this.sevenDay.bind(this);
+  this.thirtyDay = this.thirtyDay.bind(this);
+  }
 
+  async hentData(startDato, formatX, buttonC){
+    const result = await firestore.collection('samples').where('published', '>', startDato).get();
+    var step = 1;
+    var NumberOfPoints = 100;
+    if(result.docs.length> NumberOfPoints){
+      step = result.docs.length/NumberOfPoints;
+      step = Math.floor( step );
+      console.log("Steps=", step);
+    }
     
-    var data = [];
+    var dataSamples = [];
     
     for(var i = 0; i<result.docs.length; i++ )
     {
+      
+      if(i % step == 0)
       var tempData = result.docs[i].data()
-      data.push(tempData);
+      tempData.number = tempData.published.getTime();
+      dataSamples.push(tempData);
       
 
     }
+    var data = new Object();
+    data.dataSamples = dataSamples;
+    data.formatX = formatX;
+    data.buttonC = buttonC;
 
     this.setState({
       data: data,
     });
   }
+  
+  componentDidMount() {
+    var startDato = new Date();
+    startDato.setDate(startDato.getDate() - 7);
+    console.log("StartDato ",startDato);
+    this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
+  }
+
+  today(){
+    
+      var buttonC = new Object();
+      buttonC.today="primary";
+      buttonC.seven="";
+      buttonC.thirty="";
+    var startDato = new Date();
+    
+    startDato.setHours(0,0,0,0);
+    console.log("StartDato ",startDato);
+    this.hentData(startDato, 'HH:mm',buttonC);
+  }
+
+  sevenDay(){
+    var startDato = new Date();
+    startDato.setDate(startDato.getDate() - 7);
+    console.log("StartDato ",startDato);
+    this.hentData(startDato, 'D/M HH:mm',this.buttonDefault());
+  }
+  thirtyDay(){
+    var buttonC = new Object();
+    buttonC.today="";
+    buttonC.seven="";
+    buttonC.thirty="primary";
+    var startDato = new Date();
+    startDato.setDate(startDato.getDate() - 30);
+    console.log("StartDato ",startDato);
+    this.hentData(startDato, 'D/M HH:mm',buttonC);
+  }
+
+  buttonDefault(){
+    var buttonC = new Object();
+    buttonC.today="";
+    buttonC.seven="primary";
+    buttonC.thirty="";
+    return buttonC;
+  }
+
+
   render() {
     const { classes } = this.props;
     if (!this.state.data ) { return 'loading...'; }
     return (
     <Paper  elevation={4}  className={classes.paper}>
-      <LineChart width={300} height={200} data={this.state.data}>
+    <Typography variant="display1" >
+        Badetemperatur over tid
+    </Typography>
+    <ResponsiveContainer width='100%' aspect={4.0/3.0}>
+      <LineChart  data={this.state.data.dataSamples}>
         <Line type="monotone" dataKey="p" stroke="#8884d8" dot={false} />
-        <YAxis type="number" domain={['dataMin', 'dataMax']} />
+        <YAxis type="number" domain = {['auto', 'auto']}/>
+        <XAxis
+        dataKey = 'number'
+        type='number'
+        domain={['dataMin', 'dataMax']}
+        tickFormatter = {(unixTime) => moment(unixTime).format(this.state.data.formatX)}
+ />
     </LineChart>
+    </ResponsiveContainer>
+    <Button color={this.state.data.buttonC.today} variant="raised" onClick={this.today}  className={classes.button}>
+        I dag
+      </Button>
+      <Button color={this.state.data.buttonC.seven} variant="raised" onClick={this.sevenDay} className={classes.button}>
+        7 dager
+      </Button>
+      <Button color={this.state.data.buttonC.thirty} variant="raised"  onClick={this.thirtyDay} className={classes.button}>
+        30 dager
+      </Button>
     </Paper>
      
     );

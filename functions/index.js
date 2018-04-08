@@ -23,6 +23,7 @@ exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) 
   let name = null;
   try {
     var dataene = Object.assign(pubSubMessage.json, pubSubMessage.attributes)
+    dataene.published = new Date(dataene.published_at);
     console.log("fra Nymfa",dataene);    
     return admin.firestore().collection('samples').doc().set(dataene);
 
@@ -193,6 +194,43 @@ exports.hentYr = functions.https.onRequest((req, res) => {
 
   
   })
+  
+});
+
+
+
+
+exports.justerData = functions.https.onRequest((req, res) => {
+  console.log("justerData");
+  //const result = await admin.firestore().collection('samples').orderBy("published_at", "desc").limit(10).get();
+  var ref = admin.firestore().collection('samples');
+  var p = 0;
+  var i = 0;
+  var query = ref.orderBy("published_at", "asc").get()
+    .then(snapshot => {
+        snapshot.forEach(doc => {
+          var data = doc.data();
+         // console.log("data før", data.published);
+         // console.log("data1",data.published_at);
+          data.published = new Date(data.published_at);
+         // console.log("data ", data.published);
+         // console.log("id ", doc.id);
+          ref.doc(doc.id).set(data);
+          if (p > 50){
+            console.log("antall logget ", i, " dato: " , data.published);
+            p=0;
+          }
+          p++;
+          i++;
+        });
+        return res.sendStatus(200);
+      })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
+
+
+
   
 });
 

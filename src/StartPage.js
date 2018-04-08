@@ -23,7 +23,7 @@ function StartPage(props) {
     const { classes } = props;
     return (
         <div className={classes.root}>
-        <Grid container justify="center" alignItems="Stretch" spacing={8}  className={classes.root} alignItems="stretch"  >
+        <Grid container justify="center" spacing={8}  className={classes.root} alignItems="stretch"  >
             <Grid item xs={12}>
             <Typography variant="display1" >
                   Nordbytjernet

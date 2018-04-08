@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import { BrowserRouter } from "react-router-dom";
 import StartPage  from './StartPage';
 import SampleStats  from './SampleStats';
+import Om  from './Om';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
@@ -14,7 +15,7 @@ import Typography from 'material-ui/Typography';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import InfoIcon from 'material-ui-icons/Info';
 import ShowChartIcon from 'material-ui-icons/ShowChart';
-
+import HomeIcon from 'material-ui-icons/Home';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
@@ -73,7 +74,7 @@ class App extends Component {
 
           <Route exact path="/" component={StartPage} />
           <Route exact path="/stats" component={SampleStats} />
-          <Route exact path="/om" component={SampleStats} />
+          <Route exact path="/om" component={Om} />
         
         <BottomNavigation
         value={value}
@@ -81,8 +82,9 @@ class App extends Component {
         showLabels
         className={classes.root}
       >
+      <BottomNavigationAction href="/" label="Forsiden" icon={<HomeIcon />} />
         <BottomNavigationAction href="/stats" label="Temp over tid" icon={<ShowChartIcon />} />
-        <BottomNavigationAction label="Om badenymfa" icon={<InfoIcon />} />
+        <BottomNavigationAction href="/om" label="Om badenymfa" icon={<InfoIcon />} />
         
       </BottomNavigation>
         </div>

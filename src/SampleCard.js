@@ -44,7 +44,7 @@ class SampleCard extends Component {
   state = { data: null };
   
   async componentDidMount() {
-    const result = await firestore.collection('samples').orderBy("published_at", "desc").limit(1).get();
+    const result = await firestore.collection('samples').orderBy("published", "desc").limit(1).get();
     console.log(result.docs[0].data());
 
     var data = result.docs[0].data();
@@ -76,7 +76,7 @@ class SampleCard extends Component {
         <Grid item xs={12} sm={12}>
         
                 <Typography variant="caption" gutterBottom align="center">
-                  Sist måling gjort  {new Date(this.state.data.published_at).toLocaleTimeString()}. {this.state.data.p}% power.
+                  Sist måling gjort {this.state.data.published.toLocaleTimeString()}. {this.state.data.p}% power.
                 </Typography>
         </Grid>       
       </Grid>       
