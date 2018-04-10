@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Link} from "react-router-dom";
 import StartPage  from './StartPage';
 import SampleStats  from './SampleStats';
 import Om  from './Om';
@@ -16,9 +16,12 @@ import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavi
 import InfoIcon from 'material-ui-icons/Info';
 import ShowChartIcon from 'material-ui-icons/ShowChart';
 import HomeIcon from 'material-ui-icons/Home';
-
+import withTracker from './withTracker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
+
+
+
 
 const styles = {
   root: {
@@ -30,22 +33,34 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+   
+    position: "fixed", 
+    bottom:"0",
+    width:"100%",
   },
 };
 
 class App extends Component {
   state = {open: false, 
           value: 0};
+
+  constructor(props) {
+    super(props);
+    
+  }
+
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange = (event, value) => this.setState({ value });
   async componentDidMount() {
     console.log("App")
   }
+
+
   render() {
     const { classes } = this.props;
     const { value } = this.state;
     return (
-      <BrowserRouter>
+      <BrowserRouter >
       <MuiThemeProvider>
     
         <div className="App">
@@ -72,19 +87,19 @@ class App extends Component {
           
         </Drawer>
 
-          <Route exact path="/" component={StartPage} />
-          <Route exact path="/stats" component={SampleStats} />
-          <Route exact path="/om" component={Om} />
+          <Route exact path="/" component={withTracker(StartPage)} />
+          <Route exact path="/stats" component={withTracker(SampleStats)} />
+          <Route exact path="/om" component={withTracker(Om)} />
         
         <BottomNavigation
         value={value}
         onChange={this.handleChange}
         showLabels
-        className={classes.root}
+        className={classes.menuButton}
       >
-      <BottomNavigationAction href="/" label="Forsiden" icon={<HomeIcon />} />
-        <BottomNavigationAction href="/stats" label="Temp over tid" icon={<ShowChartIcon />} />
-        <BottomNavigationAction href="/om" label="Om badenymfa" icon={<InfoIcon />} />
+      <BottomNavigationAction component={Link} to="/" label="Forsiden2" icon={<HomeIcon />} />
+        <BottomNavigationAction component={Link} to="/stats" label="Temp over tid" icon={<ShowChartIcon />} />
+        <BottomNavigationAction component={Link}  to="/om" label="Om badenymfa" icon={<InfoIcon />} />
         
       </BottomNavigation>
         </div>

@@ -7,6 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import WeatherSymbol from './WeatherSymbol'
 import { CircularProgress } from 'material-ui/Progress';
+import ReactGA from 'react-ga';
 
 const styles = theme => ({
     root: {
@@ -66,7 +67,10 @@ class WeatherCard extends Component {
         <Grid item xs={12} sm={12}>
         
                 <Typography variant="caption" gutterBottom align="center">
-                Værvarsel fra <a href={this.state.data.link} >Yr levert av Meteorologisk institutt og NRK</a>, og gjelder fra {this.state.data.time.from.toLocaleTimeString()} til {this.state.data.time.to.toLocaleTimeString()}
+                Værvarsel fra <ReactGA.OutboundLink 
+                eventLabel="YR"
+                to={this.state.data.link}
+              target="_blank">Yr levert av Meteorologisk institutt og NRK</ReactGA.OutboundLink>, og gjelder fra {this.state.data.time.from.toLocaleTimeString()} til {this.state.data.time.to.toLocaleTimeString()}
                 </Typography>
         </Grid>       
       </Grid>       

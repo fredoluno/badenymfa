@@ -9,7 +9,7 @@ import Grid from 'material-ui/Grid';
 import { LineChart, Line, YAxis, XAxis,ResponsiveContainer } from 'recharts';
 import moment from 'moment'
 import Button from 'material-ui/Button';
-
+import ReactGA from 'react-ga';
 
 import './App.css';
 
@@ -93,6 +93,14 @@ class SampleStats extends Component {
     this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
   }
 
+  setTrack(range){
+    ReactGA.event({
+      category: 'Stats Navigation',
+      action: range,
+      
+  });
+  }
+
   today(){
     
       var buttonC = new Object();
@@ -104,6 +112,7 @@ class SampleStats extends Component {
     startDato.setHours(0,0,0,0);
     console.log("StartDato ",startDato);
     this.hentData(startDato, 'HH:mm',buttonC);
+    this.setTrack('Today');
   }
 
   sevenDay(){
@@ -111,6 +120,7 @@ class SampleStats extends Component {
     startDato.setDate(startDato.getDate() - 7);
     console.log("StartDato ",startDato);
     this.hentData(startDato, 'D/M HH:mm',this.buttonDefault());
+    this.setTrack('Seven days');
   }
   thirtyDay(){
     var buttonC = new Object();
@@ -121,6 +131,7 @@ class SampleStats extends Component {
     startDato.setDate(startDato.getDate() - 30);
     console.log("StartDato ",startDato);
     this.hentData(startDato, 'D/M HH:mm',buttonC);
+    this.setTrack('Thirty Days');
   }
 
   buttonDefault(){
@@ -136,7 +147,7 @@ class SampleStats extends Component {
     const { classes } = this.props;
     if (!this.state.data ) { return 'loading...'; }
     return (
-    <Paper  elevation={4}  className={classes.paper}>
+    <div  className={classes.paper}>
     <Typography variant="display1" >
         Badetemperatur over tid
     </Typography>
@@ -161,7 +172,7 @@ class SampleStats extends Component {
       <Button color={this.state.data.buttonC.thirty} variant="raised"  onClick={this.thirtyDay} className={classes.button}>
         30 dager
       </Button>
-    </Paper>
+    </div>
      
     );
   }
