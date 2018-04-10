@@ -10,6 +10,7 @@ const styles = theme => ({
     root: {
       flexGrow: 1,
       margin: 'auto',
+      paddingBottom:'30px',
     },    
 
     fredrik:{

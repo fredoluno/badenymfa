@@ -11,17 +11,18 @@ import moment from 'moment'
 import Button from 'material-ui/Button';
 import ReactGA from 'react-ga';
 
+
+
 import './App.css';
 
 
 
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
-  }),
+  root: {
+    flexGrow: 1,
+    paddingBottom:'100px'
+  },
   button: {
     margin: theme.spacing.unit,
   },
@@ -35,8 +36,9 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit * 2,
-   
-   
+    
+    margin:'auto',
+    marginTop: '8px',
     
   },
   control: {
@@ -91,6 +93,7 @@ class SampleStats extends Component {
     startDato.setDate(startDato.getDate() - 7);
     console.log("StartDato ",startDato);
     this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
+  
   }
 
   setTrack(range){
@@ -147,32 +150,37 @@ class SampleStats extends Component {
     const { classes } = this.props;
     if (!this.state.data ) { return 'loading...'; }
     return (
-    <div  className={classes.paper}>
-    <Typography variant="display1" >
-        Badetemperatur over tid
-    </Typography>
-    <ResponsiveContainer width='100%' aspect={4.0/2.0}>
-      <LineChart  data={this.state.data.dataSamples}>
-        <Line type="monotone" dataKey="p" stroke="#8884d8" dot={false} />
-        <YAxis type="number" domain = {['auto', 'auto']}/>
-        <XAxis
-        dataKey = 'number'
-        type='number'
-        domain={['dataMin', 'dataMax']}
-        tickFormatter = {(unixTime) => moment(unixTime).format(this.state.data.formatX)}
- />
-    </LineChart>
-    </ResponsiveContainer>
-    <Button color={this.state.data.buttonC.today} variant="raised" onClick={this.today}  className={classes.button}>
-        I dag
-      </Button>
-      <Button color={this.state.data.buttonC.seven} variant="raised" onClick={this.sevenDay} className={classes.button}>
-        7 dager
-      </Button>
-      <Button color={this.state.data.buttonC.thirty} variant="raised"  onClick={this.thirtyDay} className={classes.button}>
-        30 dager
-      </Button>
-    </div>
+      <Grid container justify="center" spacing={8}  className={classes.root} alignItems="stretch"  >
+        <Grid item xs={11}>
+          <Paper  className={classes.paper}>
+          <Typography variant="display1" >
+              {this.props.title}
+          </Typography>
+ 
+          <ResponsiveContainer width='95%' aspect={4/2} >
+            <LineChart  data={this.state.data.dataSamples}>
+              <Line type="monotone" dataKey={this.props.measure} stroke="#8884d8" dot={false} />
+              <YAxis type="number" domain = {['auto', 'auto']}/>
+              <XAxis
+              dataKey = 'number'
+              type='number'
+              domain={['dataMin', 'dataMax']}
+              tickFormatter = {(unixTime) => moment(unixTime).format(this.state.data.formatX)} />
+          </LineChart>
+          </ResponsiveContainer>
+         
+          <Button color={this.state.data.buttonC.today} variant="raised" onClick={this.today}  className={classes.button}>
+              I dag
+            </Button>
+            <Button color={this.state.data.buttonC.seven} variant="raised" onClick={this.sevenDay} className={classes.button}>
+              7 dager
+            </Button>
+            <Button color={this.state.data.buttonC.thirty} variant="raised"  onClick={this.thirtyDay} className={classes.button}>
+              30 dager
+            </Button>
+          </Paper>
+      </Grid>    
+    </Grid>
      
     );
   }

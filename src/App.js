@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import { Router,BrowserRouter, Link} from "react-router-dom";
 import StartPage  from './StartPage';
 import SampleStats  from './SampleStats';
+import Power  from './Power';
+import Temp  from './Temp';
 import Om  from './Om';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -90,7 +92,8 @@ class App extends Component {
         </Drawer>
 
           <Route exact path="/" component={withTracker(StartPage)} />
-          <Route exact path="/stats" component={withTracker(SampleStats)} />
+          <Route exact path="/stats" component={withTracker(Temp)} />
+          <Route exact path="/power" component={withTracker(Power)} />
           <Route exact path="/om" component={withTracker(Om)} />
         
         <BottomNavigation
@@ -100,7 +103,7 @@ class App extends Component {
         className={classes.menuButton}
       >
       <BottomNavigationAction component={Link} to="/" label="Forsiden" icon={<HomeIcon />} />
-        <BottomNavigationAction component={Link} to="/stats" label="Temp over tid" icon={<ShowChartIcon />} />
+        <BottomNavigationAction component={Link} to="/stats" label="Over tid" icon={<ShowChartIcon />} />
         <BottomNavigationAction component={Link}  to="/om" label="Om badenymfa" icon={<InfoIcon />} />
         
       </BottomNavigation>
