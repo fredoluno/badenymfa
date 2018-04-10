@@ -64,7 +64,7 @@ class SampleCard extends Component {
                   </Typography>
         </Grid>
         <Grid item >
-          <img src={thermometer} height="100px"/>
+          <img alt="termometer" src={thermometer} height="100px"/>
         </Grid>
         <Grid item >
         <Typography variant="display4" className={classes.test} gutterBottom>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import {firestore } from './fire';
+
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';

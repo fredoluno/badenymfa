@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Router,BrowserRouter, Link} from "react-router-dom";
+import { Router, Link} from "react-router-dom";
 import StartPage  from './StartPage';
-import SampleStats  from './SampleStats';
+
 import Power  from './Power';
 import Temp  from './Temp';
 import Om  from './Om';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+
+
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
@@ -21,6 +21,7 @@ import HomeIcon from 'material-ui-icons/Home';
 import withTracker from './withTracker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureHistory from './configureHistory';
+import NymfaTheme from './NymfaTheme'
 import './App.css';
 
 const history  = configureHistory();
@@ -47,10 +48,6 @@ class App extends Component {
   state = {open: false, 
           value: 0};
 
-  constructor(props) {
-    super(props);
-    
-  }
 
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange = (event, value) => this.setState({ value });
@@ -65,14 +62,10 @@ class App extends Component {
    
     return (
       <Router history={history}>
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={NymfaTheme}>
     
         <div className="App">
-        <AppBar
-          title="Badenymfa på Nordbytjnernet"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-          onLeftIconButtonClick={this.handleToggle}
-        /> 
+
 
         <AppBar position="static">
         <Toolbar>

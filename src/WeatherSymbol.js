@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import cloud from './weather/021-cloud.svg';
 import cloudy1 from './weather/021-cloudy-1.svg';
-import cloudy from './weather/021-cloudy.svg';
-import night1 from './weather/021-night-1.svg';
-import night from './weather/021-night.svg';
+//import cloudy from './weather/021-cloudy.svg';
+//night1 from './weather/021-night-1.svg';
+//import night from './weather/021-night.svg';
 import rain1 from './weather/021-rain-1.svg';
 import rain2 from './weather/021-rain-2.svg';
 import rain from './weather/021-rain.svg';
@@ -14,11 +14,11 @@ import snowing2 from './weather/021-snowing-2.svg';
 import snowing3 from './weather/021-snowing-3.svg';
 import snowing from './weather/021-snowing.svg';
 import storm from './weather/021-storm.svg';
-import summer from './weather/021-summer.svg';
+//import summer from './weather/021-summer.svg';
 import sun from './weather/021-sun.svg';
-import sunrise from './weather/021-sunrise.svg';
-import sunset from './weather/021-sunset.svg';
-import tornado from './weather/021-tornado.svg';
+//import sunrise from './weather/021-sunrise.svg';
+//import sunset from './weather/021-sunset.svg';
+//import tornado from './weather/021-tornado.svg';
 
 
 const symbolMap = {

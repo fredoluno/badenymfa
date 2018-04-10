@@ -3,7 +3,7 @@ import {firestore } from './fire';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
-import thermometer from './weather/thermometer.svg'
+
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import { LineChart, Line, YAxis, XAxis,ResponsiveContainer } from 'recharts';
@@ -71,14 +71,14 @@ class SampleStats extends Component {
     for(var i = 0; i<result.docs.length; i++ )
     {
       
-      if(i % step == 0)
+      if(i % step === 0)
       var tempData = result.docs[i].data()
       tempData.number = tempData.published.getTime();
       dataSamples.push(tempData);
       
 
     }
-    var data = new Object();
+    var data = {};
     data.dataSamples = dataSamples;
     data.formatX = formatX;
     data.buttonC = buttonC;
@@ -106,10 +106,10 @@ class SampleStats extends Component {
 
   today(){
     
-      var buttonC = new Object();
+      var buttonC ={};
       buttonC.today="primary";
-      buttonC.seven="";
-      buttonC.thirty="";
+      buttonC.seven="default";
+      buttonC.thirty="default";
     var startDato = new Date();
     
     startDato.setHours(0,0,0,0);
@@ -126,9 +126,9 @@ class SampleStats extends Component {
     this.setTrack('Seven days');
   }
   thirtyDay(){
-    var buttonC = new Object();
-    buttonC.today="";
-    buttonC.seven="";
+    var buttonC = {};
+    buttonC.today="default";
+    buttonC.seven="default";
     buttonC.thirty="primary";
     var startDato = new Date();
     startDato.setDate(startDato.getDate() - 30);
@@ -138,10 +138,10 @@ class SampleStats extends Component {
   }
 
   buttonDefault(){
-    var buttonC = new Object();
-    buttonC.today="";
+    var buttonC = {};
+    buttonC.today="default";
     buttonC.seven="primary";
-    buttonC.thirty="";
+    buttonC.thirty="default";
     return buttonC;
   }
 

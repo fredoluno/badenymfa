@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SampleStats from './SampleStats';
 
 export default function Power() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SampleCard  from './SampleCard';
 import WeatherCard  from './WeatherCard';
 import Grid from 'material-ui/Grid';
