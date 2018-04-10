@@ -99,7 +99,7 @@ class App extends Component {
         showLabels
         className={classes.menuButton}
       >
-      <BottomNavigationAction component={Link} to="/" label="Forsiden2" icon={<HomeIcon />} />
+      <BottomNavigationAction component={Link} to="/" label="Forsiden" icon={<HomeIcon />} />
         <BottomNavigationAction component={Link} to="/stats" label="Temp over tid" icon={<ShowChartIcon />} />
         <BottomNavigationAction component={Link}  to="/om" label="Om badenymfa" icon={<InfoIcon />} />
         
