@@ -151,7 +151,7 @@ class SampleStats extends Component {
     <Typography variant="display1" >
         Badetemperatur over tid
     </Typography>
-    <ResponsiveContainer width='100%' aspect={4.0/3.0}>
+    <ResponsiveContainer width='100%' aspect={4.0/2.0}>
       <LineChart  data={this.state.data.dataSamples}>
         <Line type="monotone" dataKey="p" stroke="#8884d8" dot={false} />
         <YAxis type="number" domain = {['auto', 'auto']}/>
