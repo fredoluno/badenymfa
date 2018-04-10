@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { BrowserRouter, Link} from "react-router-dom";
+import { Router,BrowserRouter, Link} from "react-router-dom";
 import StartPage  from './StartPage';
 import SampleStats  from './SampleStats';
 import Om  from './Om';
@@ -18,9 +18,10 @@ import ShowChartIcon from 'material-ui-icons/ShowChart';
 import HomeIcon from 'material-ui-icons/Home';
 import withTracker from './withTracker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import configureHistory from './configureHistory';
 import './App.css';
 
-
+const history  = configureHistory();
 
 
 const styles = {
@@ -59,8 +60,9 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
+   
     return (
-      <BrowserRouter >
+      <Router history={history}>
       <MuiThemeProvider>
     
         <div className="App">
@@ -105,7 +107,7 @@ class App extends Component {
         </div>
 
         </MuiThemeProvider>
-      </BrowserRouter>
+      </Router>
     );
 
   }
