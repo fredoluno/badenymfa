@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 import thermometer from './weather/thermometer.svg'
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import { CircularProgress } from 'material-ui/Progress';
 
 
 import './App.css';
@@ -54,7 +55,7 @@ class SampleCard extends Component {
   }
   render() {
     const { classes } = this.props;
-    if (!this.state.data ) { return 'loading...'; }
+    if (!this.state.data ) { return (<CircularProgress className={classes.progress} size={50} />)}
     return (
     <Paper  elevation={4}  className={classes.paper}>
       <Grid container alignItems="center" justify="center" >

@@ -65,18 +65,7 @@ class Om extends Component {
                 <Typography align="left" gutterBottom>
                 Ta kontakt på facebook eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakelding
                 </Typography>
-                <Typography variant="title" align="left" gutterBottom>
-                Kontakt
-                </Typography>      
-                <Typography align="left" gutterBottom>
-                Ta kontakt på facebook eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakelding
-                </Typography>
-                <Typography variant="title" align="left" gutterBottom>
-                Kontakt
-                </Typography>      
-                <Typography align="left" gutterBottom>
-                Ta kontakt på facebook eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakelding
-                </Typography>
+
             
           </Paper>
         </Grid>    

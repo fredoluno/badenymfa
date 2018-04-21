@@ -10,6 +10,7 @@ import { LineChart, Line, YAxis, XAxis,ResponsiveContainer } from 'recharts';
 import moment from 'moment'
 import Button from 'material-ui/Button';
 import ReactGA from 'react-ga';
+import { CircularProgress } from 'material-ui/Progress';
 
 
 
@@ -148,7 +149,7 @@ class SampleStats extends Component {
 
   render() {
     const { classes } = this.props;
-    if (!this.state.data ) { return 'loading...'; }
+    if (!this.state.data ) { return (<CircularProgress className={classes.progress} size={50} />) }
     return (
       <Grid container justify="center" spacing={8}  className={classes.root} alignItems="stretch"  >
         <Grid item xs={11}>
