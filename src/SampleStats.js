@@ -60,7 +60,7 @@ class SampleStats extends Component {
   async hentData(startDato, formatX, buttonC){
     const result = await firestore.collection('samples').where('published', '>', startDato).get();
     var step = 1;
-    var NumberOfPoints = 100;
+    var NumberOfPoints = 200;
     if(result.docs.length> NumberOfPoints){
       step = result.docs.length/NumberOfPoints;
       step = Math.floor( step );
@@ -91,10 +91,11 @@ class SampleStats extends Component {
   
   componentDidMount() {
     var startDato = new Date();
-    startDato.setDate(startDato.getDate() - 7);
-    console.log("StartDato ",startDato);
-    this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
-  
+    //startDato.setDate(startDato.getDate() - 7);
+    //console.log("StartDato ",startDato);
+    //this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
+    this.today();
+    //this.sevenDay();
   }
 
   setTrack(range){
@@ -158,7 +159,7 @@ class SampleStats extends Component {
               {this.props.title}
           </Typography>
  
-          <ResponsiveContainer width='95%' aspect={4/2} >
+          <ResponsiveContainer width='95%' aspect={5/2} >
             <LineChart  data={this.state.data.dataSamples}>
               <Line type="monotone" dataKey={this.props.measure} stroke="#8884d8" dot={false} />
               <YAxis type="number" domain = {['auto', 'auto']}/>

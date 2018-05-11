@@ -24,6 +24,7 @@ const styles = theme => ({
     },
     test:{
       marginBottom:0,
+      fontSize: '6rem',
     },
     control: {
       padding: theme.spacing.unit * 2,

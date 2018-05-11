@@ -20,7 +20,7 @@ const styles = theme => ({
   }),
 
   freddan:{
-    fontSize: '7rem',
+    fontSize: '6rem',
   },
 
   demo: {
@@ -34,6 +34,7 @@ const styles = theme => ({
   },
   test:{
     marginBottom:0,
+    fontSize: '6rem',
   },
   control: {
     padding: theme.spacing.unit * 2,
@@ -65,7 +66,7 @@ class SampleCard extends Component {
                   </Typography>
         </Grid>
         <Grid item >
-          <img alt="termometer" src={thermometer} height="100px"/>
+          <img alt="termometer" src={thermometer} height="90px"/>
         </Grid>
         <Grid item >
         <Typography variant="display4" className={classes.test} gutterBottom>

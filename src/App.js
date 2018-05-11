@@ -33,6 +33,8 @@ const styles = {
   },
   flex: {
     flex: 1,
+    fontFamily: ['Shrikhand', 'cursive'] ,
+    fontSize:'25pt',
   },
   menuButton: {
     marginLeft: -12,

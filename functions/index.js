@@ -25,8 +25,8 @@ exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) 
     var dataene = Object.assign(pubSubMessage.json, pubSubMessage.attributes)
     dataene.published = new Date(dataene.published_at);
     console.log("fra Nymfa",dataene);    
-    return admin.firestore().collection('samples').doc().set(dataene);
-
+   return admin.firestore().collection('samples').doc().set(dataene);
+   
     
   } catch (e) {
     console.error('PubSub message was not JSON', e);
@@ -125,11 +125,39 @@ exports.nymfaStatus = functions.https.onRequest((req, res) => {
     
     var dataene = new Object() ;
     dataene.waitfor = 60*30;
-    dataene.awake= false;   
-    admin.firestore().collection('nymfaSettings').doc().set(dataene);
+    dataene.awake= 0;   
+    admin.firestore().collection('nymfaSettings').doc("settings").set(dataene);
   
     res.send(dataene);
     
+  } catch (e) {
+    console.error(' error', e);
+  }
+  return -1;
+  
+});
+
+exports.nymfa = functions.https.onRequest((req, res) => {
+  
+  try {
+    console.log('body:', req.body);
+    var ref = admin.firestore().collection('nymfaSettings').doc("settings");
+    var getDoc = ref.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+        return 0;
+      } else {
+        var dataene = doc.data();
+        console.log('Document data:',dataene );
+        res.send(dataene);
+        return -1;
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+  
   } catch (e) {
     console.error(' error', e);
   }
@@ -240,5 +268,28 @@ function getDateNoTime(time){
   time.from = new Date(time.from+"+02:00");
   time.to = new Date(time.to+"+02:00");
  return time;
+}
+
+function getSettings()
+{
+  var ref = admin.firestore().collection('nymfaSettings').doc("settings");
+    var getDoc = ref.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+        var dataene = new Object() ;
+        dataene.waitfor = 60*30;
+        dataene.awake= 0;
+        return dataene;
+      } else {
+        var frabasen = doc.data();
+        console.log('Document data:',frabasen );
+        
+        return frabasen;
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
 }
 

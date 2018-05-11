@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import { Link} from "react-router-dom";
+import {Rotate90DegreesCcw} from 'material-ui-icons'
 
 const styles = theme => ({
     root: {
@@ -48,7 +49,7 @@ class Om extends Component {
                 Historien
                 </Typography>      
                 <Typography align="left" gutterBottom>
-                Badenymfa flyttet til Jessheim midt på 80 tallet, men det er først nå hun har fått tilgang til internett. Internett fikk hun etter at en stakkars jogger mistet mobilen sin eå ha glemt å ta den av før han hoppet i vannet etter en tur rundt tjernet. Nå er hun i hvertfall klar til å si i fra hvor varmt vannet er. Det gjør hun fordi du kan enten skryte av hvor kaldt det var da du badet, eller at du skal kunne sitte hjemme i sofaen og sjekke om det er på tide å komme seg ut å ta en dukkert. 
+                Badenymfa flyttet til Jessheim midt på 80 tallet, men det er først nå hun har fått tilgang til internett. Internett fikk hun etter at en stakkars jogger mistet mobilen sin når han hoppet i vannet etter en tur rundt tjernet. Nå er hun i hvertfall klar til å si i fra hvor varmt vannet er. Det gjør hun fordi du kan enten skryte av hvor kaldt det var da du badet, eller at du skal kunne sitte hjemme i sofaen og sjekke om det er på tide å komme seg ut å for å ta en dukkert. Kos deg!
 
                 </Typography>
                 <Typography variant="title" align="left" gutterBottom>
@@ -63,7 +64,7 @@ class Om extends Component {
                 Kontakt
                 </Typography>      
                 <Typography align="left" gutterBottom>
-                Ta kontakt på facebook eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakelding
+                Ta kontakt på facebook eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakemelding
                 </Typography>
 
             

@@ -30,7 +30,7 @@ function StartPage(props) {
                   Nordbytjernet
             </Typography>
             <Typography variant="caption" >
-                  Badenymfa gjør jobben med å finne ut hvor kaldt det er i vannet, så du slipper å dyppe tåa.
+                  Badenymfa gjør jobben med å finne ut hvor varmt det er i vannet. Du må selv ta ansvar for å dyppe hodet.
             </Typography>
             </Grid>
             <Grid item xs={11} sm={5} md={4} >
