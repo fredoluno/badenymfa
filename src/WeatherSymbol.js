@@ -67,7 +67,7 @@ const symbolMap = {
 };
 const Prognose = props => (
   <div>
-    <img src={symbolMap[props.symbol]} alt={props.description} height="100px"/>
+    <img src={symbolMap[props.symbol]} alt={props.description} height="90px"/>
   </div>
 );
 
