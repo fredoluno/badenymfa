@@ -21,7 +21,8 @@ import HomeIcon from 'material-ui-icons/Home';
 import withTracker from './withTracker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureHistory from './configureHistory';
-import NymfaTheme from './NymfaTheme'
+import NymfaTheme from './NymfaTheme';
+
 import './App.css';
 
 const history  = configureHistory();
@@ -100,7 +101,7 @@ class App extends Component {
       <BottomNavigationAction component={Link} to="/" label="Forsiden" icon={<HomeIcon />} />
         <BottomNavigationAction component={Link} to="/stats" label="Over tid" icon={<ShowChartIcon />} />
         <BottomNavigationAction component={Link}  to="/om" label="Om badenymfa" icon={<InfoIcon />} />
-        
+
       </BottomNavigation>
         </div>
 

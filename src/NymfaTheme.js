@@ -1,10 +1,9 @@
 import { createMuiTheme } from 'material-ui/styles';
-import indigo from 'material-ui/colors/indigo';
-import pink from 'material-ui/colors/pink';
+
+
 import red from 'material-ui/colors/red';
 import teal from 'material-ui/colors/teal';
-import green from 'material-ui/colors/green';
-import blue from 'material-ui/colors/blue';
+
 
 
 // All the following keys are optional.
@@ -12,7 +11,7 @@ import blue from 'material-ui/colors/blue';
 const NymfaTheme = createMuiTheme({
   palette: {
     primary: teal,
-    secondary: blue,
+    secondary: red,
     error: red,
     // Used by `getContrastText()` to maximize the contrast between the background and
     // the text.

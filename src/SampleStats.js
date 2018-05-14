@@ -90,12 +90,12 @@ class SampleStats extends Component {
   }
   
   componentDidMount() {
-    var startDato = new Date();
+    //var startDato = new Date();
     //startDato.setDate(startDato.getDate() - 7);
     //console.log("StartDato ",startDato);
     //this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
-    this.today();
-    //this.sevenDay();
+    //this.today();
+    this.sevenDay();
   }
 
   setTrack(range){

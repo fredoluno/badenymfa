@@ -53,7 +53,7 @@ class WeatherCard extends Component {
       <Paper  elevation={4} className={classes.paper} >
       <Grid container alignItems="center" justify="center" >
       <Grid item xs={12}>
-                <Typography variant="display1" gutterBottom >
+                <Typography variant="display1" >
                   Været
                 </Typography>
         </Grid>
@@ -67,7 +67,7 @@ class WeatherCard extends Component {
         </Grid>
         <Grid item xs={12} sm={12}>
         
-                <Typography variant="caption" gutterBottom align="center">
+                <Typography variant="caption" align="center">
                 Værvarsel fra <ReactGA.OutboundLink 
                 eventLabel="YR"
                 to={this.state.data.link}

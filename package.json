@@ -6,6 +6,8 @@
     "firebase": "^4.11.0",
     "material-ui": "^1.0.0-beta.38",
     "material-ui-icons": "^1.0.0-beta.36",
+    "mdi-material-ui": "^4.0.0",
+    "mdi-react": "^3.3.0",
     "moment": "^2.22.0",
     "npm": "^5.8.0",
     "react": "^16.2.0",

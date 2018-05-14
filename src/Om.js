@@ -6,7 +6,9 @@ import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import { Link} from "react-router-dom";
-import {Rotate90DegreesCcw} from 'material-ui-icons'
+
+import ReactGA from 'react-ga';
+import { Facebook } from 'mdi-material-ui';
 
 const styles = theme => ({
     root: {
@@ -64,10 +66,16 @@ class Om extends Component {
                 Kontakt
                 </Typography>      
                 <Typography align="left" gutterBottom>
-                Ta kontakt på facebook eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakemelding
+                Ta kontakt på <ReactGA.OutboundLink 
+                eventLabel="facebook"
+                to="https://www.facebook.com/badenymfa"
+              target="_blank">facebook</ReactGA.OutboundLink> eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakemelding
                 </Typography>
 
-            
+              <ReactGA.OutboundLink 
+                eventLabel="facebook"
+                to="https://www.facebook.com/badenymfa"
+              target="_blank"><Facebook /></ReactGA.OutboundLink> 
           </Paper>
         </Grid>    
       </Grid>
