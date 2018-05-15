@@ -158,9 +158,6 @@ class SampleStats extends Component {
           <Typography variant="display1" >
               {this.props.title}
           </Typography>
-          <Typography variant="title" color="error" >
-              Her er det feil, da badenymfa er på land for øyeblikket. Badenymfa kommer sterkt tilbake. 
-          </Typography>
  
           <ResponsiveContainer width='95%' aspect={5/2} >
             <LineChart  data={this.state.data.dataSamples}>

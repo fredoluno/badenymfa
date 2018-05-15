@@ -65,25 +65,21 @@ class SampleCard extends Component {
                   Badetemperatur
                   </Typography>
         </Grid>
-        <Grid item xs={12}>
-                <Typography variant="title" color="error" >
-                  Badenymfa er oppe for en liten fiks. Sist målt temperatur 14 mai. Vi kommer sterkere tilbake.
-                  </Typography>
-        </Grid>
+
         <Grid item >
           <img alt="termometer" src={thermometer} height="100px"/>
         </Grid>
         <Grid item >
         <Typography variant="display4" className={classes.test} gutterBottom>
       
-                  {/*Math.round(this.state.data.tw)*/}17°
+                  {Math.round(this.state.data.tw)}°
                 
                   </Typography>
         </Grid>
         <Grid item xs={12} sm={12}>
         
                 <Typography variant="caption" align="center">
-                  Sist måling gjort <br/> 14.mai{/*this.state.data.published.toLocaleString()*/} 
+                  Sist måling gjort <br/> {this.state.data.published.toLocaleString()} 
                 </Typography>
         </Grid>       
       </Grid>       
