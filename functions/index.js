@@ -234,16 +234,18 @@ exports.justerData = functions.https.onRequest((req, res) => {
   var ref = admin.firestore().collection('samples');
   var p = 0;
   var i = 0;
-  var query = ref.orderBy("published_at", "asc").get()
+  var startD = new Date("2018-05-14T20:00:38.215Z");
+  var endD = new Date("2018-05-16T00:00:38.215Z");
+  var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
     .then(snapshot => {
         snapshot.forEach(doc => {
           var data = doc.data();
-         // console.log("data før", data.published);
+         console.log("data", data);
          // console.log("data1",data.published_at);
-          data.published = new Date(data.published_at);
+          //data.published = new Date(data.published_at);
          // console.log("data ", data.published);
          // console.log("id ", doc.id);
-          ref.doc(doc.id).set(data);
+       //   ref.doc(doc.id).delete();
           if (p > 50){
             console.log("antall logget ", i, " dato: " , data.published);
             p=0;
