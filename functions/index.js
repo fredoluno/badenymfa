@@ -226,17 +226,16 @@ exports.hentYr = functions.https.onRequest((req, res) => {
 });
 
 
-
-
-exports.justerData = functions.https.onRequest((req, res) => {
+exports.hentData = functions.https.onRequest((req, res) => {
   console.log("justerData");
   //const result = await admin.firestore().collection('samples').orderBy("published_at", "desc").limit(10).get();
   var ref = admin.firestore().collection('samples');
   var p = 0;
   var i = 0;
   var startD = new Date("2018-05-14T20:00:38.215Z");
-  var endD = new Date("2018-05-16T00:00:38.215Z");
-  var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+  //var endD = new Date("2018-05-16T00:00:38.215Z");
+  //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+  var query = ref.where("published",">",startD).orderBy("published", "desc").get()
     .then(snapshot => {
         snapshot.forEach(doc => {
           var data = doc.data();
@@ -246,6 +245,49 @@ exports.justerData = functions.https.onRequest((req, res) => {
          // console.log("data ", data.published);
          // console.log("id ", doc.id);
        //   ref.doc(doc.id).delete();
+          if (p > 50){
+            console.log("antall logget ", i, " dato: " , data.published);
+            p=0;
+          }
+          p++;
+          i++;
+        });
+        return res.sendStatus(200);
+      })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
+
+
+
+  
+});
+
+
+exports.justerData = functions.https.onRequest((req, res) => {
+  console.log("justerData");
+  //const result = await admin.firestore().collection('samples').orderBy("published_at", "desc").limit(10).get();
+  var ref = admin.firestore().collection('samples');
+  var p = 0;
+  var i = 0;
+  var startD = new Date("2018-05-16T19:30:38.215Z");
+  var endD = new Date("2018-05-16T20:39:38.215Z");
+  var query = ref.where("published",">",startD).orderBy("published", "desc").get()
+  var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+    .then(snapshot => {
+        snapshot.forEach(doc => {
+          var data = doc.data();
+         console.log("data", data);
+
+         //Justere
+         // console.log("data1",data.published_at);
+          //data.published = new Date(data.published_at);
+         // console.log("data ", data.published);
+         // console.log("id ", doc.id);
+         
+         //slette
+         //ref.doc(doc.id).delete();
+         
           if (p > 50){
             console.log("antall logget ", i, " dato: " , data.published);
             p=0;
