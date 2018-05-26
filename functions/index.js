@@ -273,7 +273,7 @@ exports.justerData = functions.https.onRequest((req, res) => {
   var startD = new Date("2018-05-16T19:30:38.215Z");
   var endD = new Date("2018-05-16T20:39:38.215Z");
   var query = ref.where("published",">",startD).orderBy("published", "desc").get()
-  var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+  //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
     .then(snapshot => {
         snapshot.forEach(doc => {
           var data = doc.data();
@@ -287,7 +287,7 @@ exports.justerData = functions.https.onRequest((req, res) => {
          
          //slette
          //ref.doc(doc.id).delete();
-         
+
           if (p > 50){
             console.log("antall logget ", i, " dato: " , data.published);
             p=0;
