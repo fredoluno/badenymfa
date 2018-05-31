@@ -71,6 +71,14 @@ class Om extends Component {
                 to="https://www.facebook.com/badenymfa"
               target="_blank">facebook</ReactGA.OutboundLink> eller via tilbakemeldingsknappen på siden her, hvis det er noe du lurer på, er inspirert til å lage noe lignende selv eller bare vil gi en tilbakemelding
                 </Typography>
+                <Typography variant="title" align="left" gutterBottom>
+                Om bruk av informasjonskapsler
+                </Typography>      
+                <Typography align="left" gutterBottom>
+                Badenymfa.no bruker informasjonskapsler fra Google Analytics, Hotjar.com og Facebook for å analysere bruken av tjenesten badenymfa.no. Disse tjenestene samler inn typisk informasjon som nettlesern du bruker, hvilke sider du har besøk, hvor du kom fra, hva slags enhet du bruker og hvor lenge du har vært på siden.<br/> <br/>
+                Dette gjør vi for å kunne lage siden bedre og lære litt opp hvordan man kan få trafikk inn på siden. Badenymfa.no er laget som et kompetanse/hobbyprosjekt hvor mye av dette går på å lære om hvordan man skape interesse for en tjenenese, i tillegg til det å faktisk ha laget den. <br/> <br/>
+                Ønsker du at disse kapselene ikke skal benyttes kan du fjerne de under instilllinger i nettleseren din. Der kan du også skru av bruk av slike inforemasjonskapsler helt.  Mener du at jeg burde lage funksjonalitet for å gjøre dette på en enklere måte, så ta kontakt på facebook eller opp i tilbakemeldingsknappen. Det er interessant om å høre om du synes dette ikke er greit. Ellers håper jeg du er fornøyd med tjenesten og fortsetter å benytte den selv om jeg måler litt om hvordan den brukes. 
+                </Typography>
 
               <ReactGA.OutboundLink 
                 eventLabel="facebook"

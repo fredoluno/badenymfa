@@ -8,6 +8,12 @@ const functions = require('firebase-functions');
 // });
 
 const admin = require('firebase-admin');
+const BigQuery = require('@google-cloud/bigquery');
+
+// Your Google Cloud Platform project ID
+const projectId = 'badetemperatur';
+
+
 var request = require('request');
 
 var fastXmlParser = require('fast-xml-parser');
@@ -69,7 +75,7 @@ exports.addMessage = functions.https.onRequest((req, res) => {
   
 // });
 
-
+//utdatert
 exports.addYr = functions.https.onRequest((req, res) => {
   console.log("Hent Værdata");
   request('https://www.yr.no/sted/Norge/Akershus/Ullensaker/Nordbytjernet/varsel.xml', (error, response, body) => {
@@ -93,7 +99,7 @@ exports.addYr = functions.https.onRequest((req, res) => {
   
 });
 
-
+//utdatert
 exports.hentYrOld = functions.https.onRequest((req, res) => {
   console.log("hent fra basen");
         //admin.firestore().setLogLevel('debug');
@@ -119,6 +125,7 @@ exports.hentYrOld = functions.https.onRequest((req, res) => {
   
 });
 
+//utdatert
 exports.nymfaStatus = functions.https.onRequest((req, res) => {
   
   try {
@@ -126,7 +133,7 @@ exports.nymfaStatus = functions.https.onRequest((req, res) => {
     var dataene = new Object() ;
     dataene.waitfor = 60*30;
     dataene.awake= 0;   
-    admin.firestore().collection('nymfaSettings').doc("settings").set(dataene);
+//    admin.firestore().collection('nymfaSettings').doc("settings").set(dataene);
   
     res.send(dataene);
     
@@ -305,6 +312,67 @@ exports.justerData = functions.https.onRequest((req, res) => {
 
   
 });
+
+
+
+exports.exportBigQuery = functions.https.onRequest((req, res) => {
+  console.log("BigQuery");
+
+
+  let bigquery = new BigQuery();
+  let datasetName="badetemperatur";
+  let tableName = "badetemperatur";
+  const datetime = BigQuery.datetime("2018-05-29T19:30:38.215Z");
+  let row = {
+   
+    device:"nymfa",
+    temperatur: 21.2,
+    timestamp: datetime
+  }
+
+  bigquery
+  .dataset(datasetName)
+  .table(tableName)
+  .insert(row)
+  .then(() => {
+    console.log(`Inserted ${rows.length} rows`);
+    return res.sendStatus(200); 
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+
+  
+  
+  let dataset = bigquery.dataset(datasetName);
+  dataset.exists().catch(err => {
+  console.error(
+    `dataset.exists: dataset ${datasetName} does not exist: ${JSON.stringify(
+      err
+    )}`
+  )
+  return err
+  })
+  console.log("dataset done");
+  
+  let table = dataset.table(tableName)
+  table.exists().catch(err => {
+    console.error(
+      `table.exists: table ${tableName} does not exist: ${JSON.stringify(err)}`
+    )
+    return err
+  })
+  console.log("table done");
+  //var startD = new Date();
+
+  return table.insert(row).catch(err => {
+    console.error(`table.insert: ${JSON.stringify(err)}`)
+    return err
+  })
+
+
+});
+
 
 
 
