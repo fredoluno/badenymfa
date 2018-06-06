@@ -321,58 +321,100 @@ exports.exportBigQuery = functions.https.onRequest((req, res) => {
 
   let bigquery = new BigQuery();
   let datasetName="badetemperatur";
-  let tableName = "badetemperatur";
-  const datetime = BigQuery.datetime("2018-05-29T19:30:38.215Z");
-  let row = {
-   
-    device:"nymfa",
-    temperatur: 21.2,
-    timestamp: datetime
-  }
-
-  bigquery
-  .dataset(datasetName)
-  .table(tableName)
-  .insert(row)
-  .then(() => {
-    console.log(`Inserted ${rows.length} rows`);
-    return res.sendStatus(200); 
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
-
+  let tableName = "sample";
   
-  
-  let dataset = bigquery.dataset(datasetName);
-  dataset.exists().catch(err => {
-  console.error(
-    `dataset.exists: dataset ${datasetName} does not exist: ${JSON.stringify(
-      err
-    )}`
-  )
-  return err
-  })
-  console.log("dataset done");
-  
-  let table = dataset.table(tableName)
-  table.exists().catch(err => {
-    console.error(
-      `table.exists: table ${tableName} does not exist: ${JSON.stringify(err)}`
-    )
-    return err
-  })
-  console.log("table done");
-  //var startD = new Date();
+  let table =   bigquery.dataset(datasetName).table(tableName);
 
-  return table.insert(row).catch(err => {
-    console.error(`table.insert: ${JSON.stringify(err)}`)
-    return err
-  })
+  var ref = admin.firestore().collection('samples');
+  var p = 0;
+  var i = 0;
+  var startD = new Date("2018-04-31T19:30:38.215Z");
+  var endD = new Date("2018-05-01T20:39:38.215Z");
+  var query = ref.where("published",">",startD).orderBy("published", "desc").get()
+  //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+    .then(snapshot => {
+      var rows = [];
+        snapshot.forEach(doc => {
+          var data = doc.data();
+         console.log("data", data);
+
+         //Justere
+         // console.log("data1",data.published_at);
+          data.published = new Date(data.published_at);
+         // console.log("data ", data.published);
+         // console.log("id ", doc.id);
+         
+         //slette
+         //ref.doc(doc.id).delete();
+      //   ----------------------------------
+      const datetime = BigQuery.datetime(data.published_at); 
+        let row = {
+          
+           device:data.device_id,
+           temperature: data.tw,
+           power:data.p,
+           timestamp: datetime
+       }
+       rows.push(row);
+
+
+
+
+         console.log("antall" + i,data.published);
+
+          if (p > 50){
+            console.log("antall logget ", i, " dato: " , data.published);
+            p=0;
+          }
+          p++;
+          i++;
+        });
+        //table.insert(rows)
+        // .then(() => {
+        //   console.log(`Inserted  rows`, rows.length);
+        //   return 0; 
+        // })
+         //.catch(err => {
+         //  console.log('Error getting documents', err);
+        // })
+        return res.send(rows.length + "rader lagt til");
+      })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
 
 
 });
 
+
+exports.sampleToBigQ = functions.firestore
+  .document("/samples/{sampleID}")
+  .onCreate(event => {
+    console.log("Data",event.data.data() );
+    var data = event.data.data();
+    let bigquery = new BigQuery();
+    let datasetName="badetemperatur";
+    let tableName = "sample";
+  
+    let table =   bigquery.dataset(datasetName).table(tableName);
+    let row = {
+            
+      device:data.device_id,
+      temperature: data.tw,
+      power:data.p,
+      timestamp: datetime
+    }
+
+    table.insert(row)
+    .then(() => {
+      console.log(`Inserted  rows`, row);
+      return 0; 
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    })
+
+  });
 
 
 
