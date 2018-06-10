@@ -328,7 +328,7 @@ exports.exportBigQuery = functions.https.onRequest((req, res) => {
   var ref = admin.firestore().collection('samples');
   var p = 0;
   var i = 0;
-  var startD = new Date("2018-04-31T19:30:38.215Z");
+  var startD = new Date("2018-06-06T09:30:38.215Z");
   var endD = new Date("2018-05-01T20:39:38.215Z");
   var query = ref.where("published",">",startD).orderBy("published", "desc").get()
   //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
@@ -369,14 +369,15 @@ exports.exportBigQuery = functions.https.onRequest((req, res) => {
           p++;
           i++;
         });
-        //table.insert(rows)
-        // .then(() => {
-        //   console.log(`Inserted  rows`, rows.length);
-        //   return 0; 
-        // })
-         //.catch(err => {
-         //  console.log('Error getting documents', err);
-        // })
+       // table.insert(rows)
+       //  .then(() => {
+       //    console.log(`Inserted  rows`, rows.length);
+       //    return 0; 
+       //  })
+       //  .catch(err => {
+       //    console.log('Error getting documents', err);
+       //  })
+       
         return res.send(rows.length + "rader lagt til");
       })
     .catch(err => {
@@ -395,7 +396,8 @@ exports.sampleToBigQ = functions.firestore
     let bigquery = new BigQuery();
     let datasetName="badetemperatur";
     let tableName = "sample";
-  
+
+    const datetime = BigQuery.datetime(data.published_at);
     let table =   bigquery.dataset(datasetName).table(tableName);
     let row = {
             
