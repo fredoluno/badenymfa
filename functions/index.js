@@ -388,6 +388,36 @@ exports.exportBigQuery = functions.https.onRequest((req, res) => {
 });
 
 
+
+exports.lastupdated = functions.https.onRequest((req, res) => {
+  console.log("lastupdated");
+  console.log(req.query.client);
+  var query = admin.firestore().collection('samples').orderBy("published_at", "desc").limit(1).get()
+  //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+    .then(snapshot => {
+      var lastUpdated = new Object();
+        snapshot.forEach(doc => {
+          var data = doc.data();
+          console.log("data", data);
+          
+          lastUpdated.updated=data.published;
+          lastUpdated.temperature = data.tw;
+          lastUpdated.location="Nordbytjernet";
+          
+        });
+        return res.status(200).json(lastUpdated);
+        //return res.sendStatus(200);
+      })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
+
+
+
+  
+});
+
+
 exports.sampleToBigQ = functions.firestore
   .document("/samples/{sampleID}")
   .onCreate(event => {
