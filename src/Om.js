@@ -59,7 +59,12 @@ class Om extends Component {
                 </Typography>      
                 <Typography align="left" gutterBottom>
                 Badenymfa.no er laget som et lite hobby/kompetanse-prosjekt for å utforske mulighetene som åpner seg med litt lodding og utvikling. 
-                <br/>
+                <br/> <br/>
+                <ReactGA.OutboundLink 
+                eventLabel="blogg.bekk.no"
+                to="https://blogg.bekk.no/badenymfa-no-33461fbeeeb7"
+              target="_blank">"Badenymfa - Produktutvikling fra Bekk til Å"</ReactGA.OutboundLink> er en artikkel jeg har skrevet om Badenymfa. Ta en titt der hvis du vil vite litt om hvordan den er laget. 
+                <br/> <br/>
                 Badenymfa er en liten datamaskin(Particle Electron) med en temperaturmåler, <Link to="/power">et batteri</Link> og et solcellepanel som flyter ute på Nordbytjernet.  
                 </Typography>
                 <Typography variant="title" align="left" gutterBottom>
