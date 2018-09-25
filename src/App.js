@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Router, Link} from "react-router-dom";
 import StartPage  from './StartPage';
+import StartPageClosed  from './StartPageClosed';
 
 import Power  from './Power';
 import Temp  from './Temp';
@@ -87,7 +88,8 @@ class App extends Component {
           
         </Drawer>
 
-          <Route exact path="/" component={withTracker(StartPage)} />
+          <Route exact path="/" component={withTracker(StartPageClosed)} />
+          <Route exact path="/sample" component={withTracker(StartPage)} />
           <Route exact path="/stats" component={withTracker(Temp)} />
           <Route exact path="/power" component={withTracker(Power)} />
           <Route exact path="/om" component={withTracker(Om)} />
