@@ -23,6 +23,9 @@ admin.initializeApp(functions.config().firebase);
 
 
 
+//const samplesCollection = 'samples';
+const samplesCollection = 'samples-offseason';
+
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
  const pubSubMessage = event.data;
   // Get the `name` attribute of the PubSub message JSON body.
@@ -31,7 +34,7 @@ exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) 
     var dataene = Object.assign(pubSubMessage.json, pubSubMessage.attributes)
     dataene.published = new Date(dataene.published_at);
     console.log("fra Nymfa",dataene);    
-   return admin.firestore().collection('samples').doc().set(dataene);
+   return admin.firestore().collection(samplesCollection).doc().set(dataene);
    
     
   } catch (e) {
@@ -235,8 +238,8 @@ exports.hentYr = functions.https.onRequest((req, res) => {
 
 exports.hentData = functions.https.onRequest((req, res) => {
   console.log("justerData");
-  //const result = await admin.firestore().collection('samples').orderBy("published_at", "desc").limit(10).get();
-  var ref = admin.firestore().collection('samples');
+  //const result = await admin.firestore().collection(samplesCollection).orderBy("published_at", "desc").limit(10).get();
+  var ref = admin.firestore().collection(samplesCollection);
   var p = 0;
   var i = 0;
   var startD = new Date("2018-05-14T20:00:38.215Z");
@@ -273,8 +276,8 @@ exports.hentData = functions.https.onRequest((req, res) => {
 
 exports.justerData = functions.https.onRequest((req, res) => {
   console.log("justerData");
-  //const result = await admin.firestore().collection('samples').orderBy("published_at", "desc").limit(10).get();
-  var ref = admin.firestore().collection('samples');
+  //const result = await admin.firestore().collection(samplesCollection).orderBy("published_at", "desc").limit(10).get();
+  var ref = admin.firestore().collection(samplesCollection);
   var p = 0;
   var i = 0;
   var startD = new Date("2018-05-16T19:30:38.215Z");
@@ -325,7 +328,7 @@ exports.exportBigQuery = functions.https.onRequest((req, res) => {
   
   let table =   bigquery.dataset(datasetName).table(tableName);
 
-  var ref = admin.firestore().collection('samples');
+  var ref = admin.firestore().collection(samplesCollection);
   var p = 0;
   var i = 0;
   var startD = new Date("2018-06-06T09:30:38.215Z");
@@ -392,7 +395,7 @@ exports.exportBigQuery = functions.https.onRequest((req, res) => {
 exports.lastupdated = functions.https.onRequest((req, res) => {
   console.log("lastupdated");
   console.log(req.query.client);
-  var query = admin.firestore().collection('samples').orderBy("published_at", "desc").limit(1).get()
+  var query = admin.firestore().collection(samplesCollection).orderBy("published_at", "desc").limit(1).get()
   //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
     .then(snapshot => {
       var lastUpdated = new Object();
