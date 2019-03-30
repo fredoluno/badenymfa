@@ -46,7 +46,9 @@ class SampleCard extends Component {
   state = { data: null };
   
   async componentDidMount() {
-    const result = await firestore.collection('samples').orderBy("published", "desc").limit(1).get();
+    //var sample = 'samples';
+    var sample = 'samples-offseason';
+    const result = await firestore.collection(sample).orderBy("published", "desc").limit(1).get();
     console.log(result.docs[0].data());
 
     var data = result.docs[0].data();

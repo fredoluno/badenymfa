@@ -28,6 +28,7 @@ const samplesCollection = 'samples-offseason';
 
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
  const pubSubMessage = event.data;
+ console.log("addSamples triggered");
   // Get the `name` attribute of the PubSub message JSON body.
   let name = null;
   try {
@@ -280,10 +281,10 @@ exports.justerData = functions.https.onRequest((req, res) => {
   var ref = admin.firestore().collection(samplesCollection);
   var p = 0;
   var i = 0;
-  var startD = new Date("2018-05-16T19:30:38.215Z");
-  var endD = new Date("2018-05-16T20:39:38.215Z");
-  var query = ref.where("published",">",startD).orderBy("published", "desc").get()
-  //var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
+  var startD = new Date("2018-09-03T21:00:38.215Z");
+  var endD = new Date("2018-09-03T22:00:38.215Z");
+  //var query = ref.where("published",">",startD).orderBy("published", "desc").get()
+  var query = ref.where("published",">",startD).where("published","<",endD).orderBy("published", "desc").get()
     .then(snapshot => {
         snapshot.forEach(doc => {
           var data = doc.data();
