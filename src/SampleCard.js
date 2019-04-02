@@ -6,7 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import thermometer from './weather/thermometer.svg'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { CircularProgress } from '@material-ui/core/CircularProgress';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 import './App.css';
@@ -58,17 +59,34 @@ class SampleCard extends Component {
   }
   render() {
     const { classes } = this.props;
-    if (!this.state.data ) { return ("<CircularProgress className={classes.progress} size={50} />")}
+    if (!this.state.data ) { return (<CircularProgress className={classes.progress} size={50} />)}
     return (
-   
-  
-        <Typography variant="display4" className={classes.test} gutterBottom>
+    <Paper  elevation={1}  className={classes.paper}>
+      <Grid container alignItems="center" justify="center" >
+      <Grid item xs={12}>
+                <Typography variant="h4" >
+                  Badetemperatur
+                  </Typography>
+        </Grid>
+
+        <Grid item >
+          <img alt="termometer" src={thermometer} height="100px"/>
+        </Grid>
+        <Grid item >
+        <Typography variant="h1" className={classes.test} gutterBottom>
       
                   {Math.round(this.state.data.tw)}°
                 
                   </Typography>
-   
-    
+        </Grid>
+        <Grid item xs={12} sm={12}>
+        
+                <Typography variant="body2" align="center">
+                  Sist måling gjort <br/> {this.state.data.published.toDate().toLocaleString()} 
+                </Typography>
+        </Grid>       
+      </Grid>       
+    </Paper>
      
     );
   }
