@@ -3,19 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^4.11.0",
-    "material-ui": "^1.0.0-beta.38",
+    "@babel/runtime": "^7.4.2",
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "ajv": "^6.10.0",
+    "firebase": "^5.9.2",
+    "material-ui": "1.0.0-beta.38",
     "material-ui-icons": "^1.0.0-beta.36",
     "mdi-material-ui": "^4.0.0",
     "mdi-react": "^3.3.0",
     "moment": "^2.22.0",
     "npm": "^5.8.0",
-    "react": "^16.2.0",
+    "react": "^16.8.6",
     "react-dom": "^16.2.0",
     "react-ga": "^2.4.1",
     "react-router-dom": "4.2.2",
     "react-scripts": "1.1.1",
-    "recharts": "^1.0.0-beta.10"
+    "recharts": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",

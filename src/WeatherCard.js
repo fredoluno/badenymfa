@@ -39,6 +39,7 @@ class WeatherCard extends Component {
         const result = await firestore.collection('weather-simple').orderBy("lastupdate", "desc").limit(1).get();
         console.log(result);
         var data = result.docs[0].data();
+        
         console.log("værdata ",data);
         this.setState({
           data: data,
@@ -71,7 +72,7 @@ class WeatherCard extends Component {
                 Værvarsel fra <ReactGA.OutboundLink 
                 eventLabel="YR"
                 to={this.state.data.link}
-              target="_blank">Yr levert av Meteorologisk institutt og NRK</ReactGA.OutboundLink>.<br/> Gjelder fra {this.state.data.time.from.toLocaleTimeString()} til {this.state.data.time.to.toLocaleTimeString()}
+              target="_blank">Yr levert av Meteorologisk institutt og NRK</ReactGA.OutboundLink>.<br/> Gjelder fra {this.state.data.time.from.toDate().toLocaleTimeString()} til {this.state.data.time.to.toDate().toLocaleTimeString()}
                 </Typography>
         </Grid>       
       </Grid>       

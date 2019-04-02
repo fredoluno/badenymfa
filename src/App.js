@@ -3,24 +3,26 @@ import { Route } from 'react-router-dom';
 import { Router, Link} from "react-router-dom";
 import StartPage  from './StartPage';
 import StartPageClosed  from './StartPageClosed';
+import OppgraderTest  from './OppgraderTest';
 
 import Power  from './Power';
 import Temp  from './Temp';
 import Om  from './Om';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Drawer from '@material-ui/core/Drawer';
 
 
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-import InfoIcon from 'material-ui-icons/Info';
-import ShowChartIcon from 'material-ui-icons/ShowChart';
-import HomeIcon from 'material-ui-icons/Home';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import InfoIcon from '@material-ui/icons/Info';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import HomeIcon from '@material-ui/icons/Home';
 import withTracker from './withTracker';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import configureHistory from './configureHistory';
 import NymfaTheme from './NymfaTheme';
 
@@ -89,6 +91,7 @@ class App extends Component {
         </Drawer>
 
           <Route exact path="/" component={withTracker(StartPageClosed)} />
+          <Route exact path="/upgrade" component={withTracker(OppgraderTest)} />
           <Route exact path="/sample" component={withTracker(StartPage)} />
           <Route exact path="/stats" component={withTracker(Temp)} />
           <Route exact path="/power" component={withTracker(Power)} />
