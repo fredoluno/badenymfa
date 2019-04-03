@@ -6,7 +6,7 @@ import thermometer from './weather/thermometer.svg'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-
+import ReactGA from 'react-ga';
 
 import './App.css';
 
@@ -61,10 +61,13 @@ class SampleCard extends Component {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" align="center" gutterBottom>
-          Badenymfa har tatt vinterferie.
+          Badenymfa kommer også i 2019.
           </Typography>      
           <Typography align="center" gutterBottom>
-25. september var det 11 grader i vannet og Badenymfa tok en velfortjent vinterferie. Hun takker for seg og kanskje kommer hun tilbake neste år!
+Da satser vi på å få ut badenymfa i år også. Jeg poster på <ReactGA.OutboundLink 
+                eventLabel="facebook"
+                to="https://www.facebook.com/badenymfa"
+              target="_blank">facebook</ReactGA.OutboundLink> så snart den er ute. Følg med der.
           </Typography>
         </Grid>
       
