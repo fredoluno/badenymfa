@@ -26,7 +26,7 @@ function StartPage(props) {
         <div className={classes.root}>
         <Grid container justify="center" spacing={8}  className={classes.root} alignItems="stretch"  >
             <Grid item xs={12}>
-            <Typography variant="display1" >
+            <Typography variant="h4" >
                   Nordbytjernet
             </Typography>
             <Typography variant="caption" >

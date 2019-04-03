@@ -81,7 +81,7 @@ class SampleCard extends Component {
         </Grid>
         <Grid item xs={12} sm={12}>
         
-                <Typography variant="body2" align="center">
+                <Typography variant="caption" >
                   Sist måling gjort <br/> {this.state.data.published.toDate().toLocaleString()} 
                 </Typography>
         </Grid>       

@@ -52,10 +52,10 @@ class WeatherCard extends Component {
     if (!this.state.data ) { return (<CircularProgress className={classes.progress} size={50} />) }   
     return (
 
-      <Paper  elevation={4} className={classes.paper} >
+      <Paper  elevation={1} className={classes.paper} >
       <Grid container alignItems="center" justify="center" >
       <Grid item xs={12}>
-                <Typography variant="display1" >
+                <Typography variant="h4" >
                   Været
                 </Typography>
         </Grid>
@@ -63,13 +63,13 @@ class WeatherCard extends Component {
         <WeatherSymbol description={this.state.data.symbol.$.name} symbol={this.state.data.symbol.$.number}/>
         </Grid>
         <Grid item >
-                <Typography variant="display4" className={classes.test} gutterBottom>
+                <Typography variant="h1" className={classes.test} gutterBottom>
                 {this.state.data.temperature}°
                 </Typography>
         </Grid>
         <Grid item xs={12} sm={12}>
         
-                <Typography variant="caption" align="center">
+                <Typography variant="caption" >
                 Værvarsel fra <ReactGA.OutboundLink 
                 eventLabel="YR"
                 to={this.state.data.link}

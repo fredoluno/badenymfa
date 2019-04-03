@@ -51,7 +51,7 @@ class SampleCard extends Component {
     <Paper  elevation={4}  className={classes.paper}>
       <Grid container alignItems="center" justify="center" >
       <Grid item xs={12}>
-                <Typography variant="display1" >
+                <Typography variant="h4" >
                   Badetemperatur
                   </Typography>
         </Grid>
@@ -60,7 +60,7 @@ class SampleCard extends Component {
           <img alt="termometer" src={thermometer} height="100px"/>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="title" align="center" gutterBottom>
+          <Typography variant="h6" align="center" gutterBottom>
           Badenymfa har tatt vinterferie.
           </Typography>      
           <Typography align="center" gutterBottom>

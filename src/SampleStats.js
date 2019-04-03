@@ -157,7 +157,7 @@ class SampleStats extends Component {
       <Grid container justify="center" spacing={8}  className={classes.root} alignItems="stretch"  >
         <Grid item xs={11}>
           <Paper  className={classes.paper}>
-          <Typography variant="display1" >
+          <Typography variant="h4" >
               {this.props.title}
           </Typography>
  
@@ -173,13 +173,13 @@ class SampleStats extends Component {
           </LineChart>
           </ResponsiveContainer>
          
-          <Button color={this.state.data.buttonC.today} variant="raised" onClick={this.today}  className={classes.button}>
+          <Button color={this.state.data.buttonC.today} variant="contained" onClick={this.today}  className={classes.button}>
               I dag
             </Button>
-            <Button color={this.state.data.buttonC.seven} variant="raised" onClick={this.sevenDay} className={classes.button}>
+            <Button color={this.state.data.buttonC.seven} variant="contained" onClick={this.sevenDay} className={classes.button}>
               7 dager
             </Button>
-            <Button color={this.state.data.buttonC.thirty} variant="raised"  onClick={this.thirtyDay} className={classes.button}>
+            <Button color={this.state.data.buttonC.thirty} variant="contained"  onClick={this.thirtyDay} className={classes.button}>
               30 dager
             </Button>
           </Paper>

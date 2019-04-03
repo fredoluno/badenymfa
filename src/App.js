@@ -76,7 +76,7 @@ class App extends Component {
         <AppBar position="static">
         <Toolbar>
   
-          <Typography variant="title" color="inherit" className={classes.flex}>
+          <Typography variant="h6" color="inherit" className={classes.flex}>
             badenymfa.no
           </Typography>
           
