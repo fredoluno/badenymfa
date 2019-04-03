@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {SAMPLE_DB} from './NymfaSettings'
 
 
 import './App.css';
@@ -47,9 +48,8 @@ class SampleCard extends Component {
   state = { data: null };
   
   async componentDidMount() {
-    //var sample = 'samples';
-    var sample = 'samples-offseason';
-    const result = await firestore.collection(sample).orderBy("published", "desc").limit(1).get();
+
+    const result = await firestore.collection(SAMPLE_DB).orderBy("published", "desc").limit(1).get();
     console.log(result.docs[0].data());
 
     var data = result.docs[0].data();

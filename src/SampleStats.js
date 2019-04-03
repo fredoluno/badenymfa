@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {firestore } from './fire';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 
-import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { LineChart, Line, YAxis, XAxis,ResponsiveContainer } from 'recharts';
 import moment from 'moment'
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import ReactGA from 'react-ga';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {SAMPLE_DB} from './NymfaSettings'
 
 
 
@@ -59,7 +60,7 @@ class SampleStats extends Component {
   }
 
   async hentData(startDato, formatX, buttonC){
-    const result = await firestore.collection('samples').where('published', '>', startDato).get();
+    const result = await firestore.collection(SAMPLE_DB).where('published', '>', startDato).get();
     var step = 1;
     var NumberOfPoints = 200;
     if(result.docs.length> NumberOfPoints){
@@ -75,7 +76,7 @@ class SampleStats extends Component {
       
       if(i % step === 0)
       var tempData = result.docs[i].data()
-      tempData.number = tempData.published.getTime();
+      tempData.number = tempData.published.toDate().getTime();
       dataSamples.push(tempData);
       
 
