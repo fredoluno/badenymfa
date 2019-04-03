@@ -9,6 +9,7 @@ import teal from '@material-ui/core/colors/teal';
 // All the following keys are optional.
 // We try our best to provide a great default value.
 const NymfaTheme = createMuiTheme({
+  
   text: {
     primary: 'rgba(1, 0, 0, 0.54)',
     secondary: 'rgba(0, 0, 0, 0.54)',
@@ -16,21 +17,24 @@ const NymfaTheme = createMuiTheme({
     hint: 'rgba(0, 0, 0, 0.38)'
   },
   typography: {
-    
+    useNextVariants: true,
     h1:{
-      color: 'rgba(100, 0, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)'
     },
     h2:{
-      color: 'rgba(100, 0, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)'
     },
     h3:{
-      color: 'rgba(200, 0, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)'
     },
     h4:{
-      color: 'rgba(0, 500, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)'
+    },
+    h6:{
+      color: 'rgba(0, 0, 0, 0.54)'
     },
     caption:{
-      color: 'rgba(0, 256, 256, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)'
     }
   },
   palette: {

@@ -42,7 +42,7 @@ class OppgraderTest extends Component {
   state = { data: null };
   
   render() {
-    const { classes } = this.props;
+    
   
     return (
     <div>ditt</div>
