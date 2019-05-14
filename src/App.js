@@ -90,9 +90,9 @@ class App extends Component {
           
         </Drawer>
 
-          <Route exact path="/" component={withTracker(StartPageClosed)} />
+          <Route exact path="/" component={withTracker(StartPage)} />
           <Route exact path="/upgrade" component={withTracker(OppgraderTest)} />
-          <Route exact path="/sample" component={withTracker(StartPage)} />
+          <Route exact path="/sample" component={withTracker(StartPageClosed)} />
           <Route exact path="/stats" component={withTracker(Temp)} />
           <Route exact path="/power" component={withTracker(Power)} />
           <Route exact path="/om" component={withTracker(Om)} />
