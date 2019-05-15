@@ -27,12 +27,16 @@ const samplesCollection = 'samples';
 //const samplesCollection = 'samples-offseason';
 
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
- const pubSubMessage = event.data;
+  const pubSubMessage = event.data ? Buffer.from(event.data, 'base64').toString() : null;
+ //const pubSubMessage = event.data;
+ 
  console.log("addSamples triggered");
-  // Get the `name` attribute of the PubSub message JSON body.
+ console.log("data: " + pubSubMessage);
+ console.log("atts " +  event.attributes);
+ // Get the `name` attribute of the PubSub message JSON body.
   let name = null;
   try {
-    var dataene = Object.assign(pubSubMessage.json, pubSubMessage.attributes)
+    var dataene = Object.assign(JSON.parse(pubSubMessage), event.attributes);
     dataene.published = new Date(dataene.published_at);
     console.log("fra Nymfa",dataene);    
    return admin.firestore().collection(samplesCollection).doc().set(dataene);
