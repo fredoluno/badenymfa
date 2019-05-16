@@ -60,7 +60,27 @@ class SampleStats extends Component {
   }
 
   async hentData(startDato, formatX, buttonC){
-    const result = await firestore.collection(SAMPLE_DB).where('published', '>', startDato).get();
+    const CompareDays = 14;
+    var previousStartDate = new Date();
+    previousStartDate= startDato.setDate(startDato.getDate() - CompareDays);
+    var previousEndDate = new Date();
+    previousStartDate= startDato.setDate(previousEndDate.getDate() - CompareDays);
+
+    const result = await firestore.collection(SAMPLE_DB).where('published', '>', startDato).get(); 
+    const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
+    
+    var data = {};
+    data.dataSamples =this.getDataSamples(result,0);
+    data.dataSamplesCompare =this.getDataSamples(result2, CompareDays);
+    data.formatX = formatX;
+    data.buttonC = buttonC;
+
+    this.setState({
+      data: data,
+    });
+  }
+
+  getDataSamples(result, daysOff){
     var step = 1;
     var NumberOfPoints = 200;
     if(result.docs.length> NumberOfPoints){
@@ -74,22 +94,20 @@ class SampleStats extends Component {
     for(var i = 0; i<result.docs.length; i++ )
     {
       
-      if(i % step === 0)
+      if(i % step === 0) 
       var tempData = result.docs[i].data()
-      tempData.number = tempData.published.toDate().getTime();
+      var tempDate = tempData.published.toDate()
+      console.log(tempDate);
+      tempDate =  tempDate.setDate(tempDate.getDate() + daysOff);
+      console.log(tempDate);
+      tempData.number = tempDate.getTime();
       dataSamples.push(tempData);
       
 
     }
-    var data = {};
-    data.dataSamples = dataSamples;
-    data.formatX = formatX;
-    data.buttonC = buttonC;
-
-    this.setState({
-      data: data,
-    });
+    return dataSamples;
   }
+  
   
   componentDidMount() {
     //var startDato = new Date();
@@ -162,8 +180,9 @@ class SampleStats extends Component {
           </Typography>
  
           <ResponsiveContainer width='95%' aspect={5/2} >
-            <LineChart  data={this.state.data.dataSamples}>
-              <Line type="monotone" dataKey={this.props.measure} stroke="#8884d8" dot={false} />
+            <LineChart  >
+              <Line type="monotone" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} />
+              <Line type="monotone" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#8884d8" dot={false} />
               <YAxis type="number" domain = {['auto', 'auto']}/>
               <XAxis
               dataKey = 'number'

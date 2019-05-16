@@ -8,8 +8,9 @@ const functions = require('firebase-functions');
 // });
 
 const admin = require('firebase-admin');
-const BigQuery = require('@google-cloud/bigquery');
 
+//const BigQuery = require('@google-cloud/bigquery');
+const {BigQuery} = require('@google-cloud/bigquery');
 // Your Google Cloud Platform project ID
 const projectId = 'badetemperatur';
 
@@ -231,6 +232,7 @@ exports.hentYr = functions.https.onRequest((req, res) => {
         console.log("ISOString" + weather.lastupdate.toISOString());
         weatherRef.doc(weather.lastupdate.toISOString()).set(weather);
         //result.lastupdate = result.weatherdata.meta[0].lastupdate[0];
+        res.set('Access-Control-Allow-Origin', '*');
         return res.send(weather);
 
     });
@@ -428,9 +430,9 @@ exports.lastupdated = functions.https.onRequest((req, res) => {
 
 exports.sampleToBigQ = functions.firestore
   .document("/samples/{sampleID}")
-  .onCreate(event => {
-    console.log("Data",event.data.data() );
-    var data = event.data.data();
+  .onCreate((event, context) => {
+    console.log("Data",event.data() );
+    var data = event.data();
     let bigquery = new BigQuery();
     let datasetName="badetemperatur";
     let tableName = "sample";
@@ -444,7 +446,7 @@ exports.sampleToBigQ = functions.firestore
       power:data.p,
       timestamp: datetime
     }
-
+    console.log("row " + row);
     table.insert(row)
     .then(() => {
       console.log(`Inserted  rows`, row);
@@ -453,7 +455,8 @@ exports.sampleToBigQ = functions.firestore
     .catch(err => {
       console.log('Error getting documents', err);
     })
-
+    
+    return;
   });
 
 
