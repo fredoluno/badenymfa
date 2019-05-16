@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { LineChart, Line, YAxis, XAxis,ResponsiveContainer } from 'recharts';
+import { LineChart, Line, YAxis, XAxis,ResponsiveContainer,Legend } from 'recharts';
 import moment from 'moment'
 import Button from '@material-ui/core/Button';
 import ReactGA from 'react-ga';
@@ -60,11 +60,18 @@ class SampleStats extends Component {
   }
 
   async hentData(startDato, formatX, buttonC){
-    const CompareDays = 14;
-    var previousStartDate = new Date();
-    previousStartDate= startDato.setDate(startDato.getDate() - CompareDays);
+    const CompareDays = 365;
+
+    var previousStartDate = new Date(startDato);
+    previousStartDate.setDate(startDato.getDate() - CompareDays);
     var previousEndDate = new Date();
-    previousStartDate= startDato.setDate(previousEndDate.getDate() - CompareDays);
+    
+    previousEndDate.setDate(previousEndDate.getDate() - CompareDays);
+
+    console.log("startDato " + startDato);
+    console.log("previousStartDate " + previousStartDate);
+    console.log("previousEndDate " + previousEndDate);
+    
 
     const result = await firestore.collection(SAMPLE_DB).where('published', '>', startDato).get(); 
     const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
@@ -81,6 +88,7 @@ class SampleStats extends Component {
   }
 
   getDataSamples(result, daysOff){
+    console.log("daysoff "+ daysOff)
     var step = 1;
     var NumberOfPoints = 200;
     if(result.docs.length> NumberOfPoints){
@@ -88,20 +96,21 @@ class SampleStats extends Component {
       step = Math.floor( step );
       console.log("Steps=", step);
     }
-    
+    console.log("length" + result.docs.length);
     var dataSamples = [];
     
     for(var i = 0; i<result.docs.length; i++ )
     {
       
-      if(i % step === 0) 
-      var tempData = result.docs[i].data()
-      var tempDate = tempData.published.toDate()
-      console.log(tempDate);
-      tempDate =  tempDate.setDate(tempDate.getDate() + daysOff);
-      console.log(tempDate);
-      tempData.number = tempDate.getTime();
-      dataSamples.push(tempData);
+      if(i % step === 0){ 
+        var tempData = result.docs[i].data()
+        var tempDate = tempData.published.toDate()
+       
+        tempDate.setDate(tempDate.getDate() + daysOff);
+       
+        tempData.number = tempDate.getTime();
+        dataSamples.push(tempData);
+      }
       
 
     }
@@ -181,14 +190,15 @@ class SampleStats extends Component {
  
           <ResponsiveContainer width='95%' aspect={5/2} >
             <LineChart  >
-              <Line type="monotone" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} />
-              <Line type="monotone" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#8884d8" dot={false} />
+              <Line type="monotone" name="2019" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} />
+              <Line type="monotone" name="2018" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#d8ce84"  strokeDasharray="5 5" dot={false} />
               <YAxis type="number" domain = {['auto', 'auto']}/>
               <XAxis
               dataKey = 'number'
               type='number'
               domain={['dataMin', 'dataMax']}
               tickFormatter = {(unixTime) => moment(unixTime).format(this.state.data.formatX)} />
+              <Legend />
           </LineChart>
           </ResponsiveContainer>
          
