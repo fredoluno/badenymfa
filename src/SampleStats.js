@@ -234,13 +234,14 @@ class SampleStats extends Component {
     if(s2018){
       console.log("s2018 er sann, setter false");
       this.setLocalData(false);
+      this.setTrack('2018false');
     }
     else{
       this.setLocalData(true);
-      
+      this.setTrack('2018true');  
     }
     this.set2018(data);
-
+    
   }
   
 
@@ -258,13 +259,13 @@ class SampleStats extends Component {
     if (!this.state.data ) { return (<CircularProgress className={classes.progress} size={50} />) }
     return (
       <Grid container justify="center" spacing={8}  className={classes.root} alignItems="stretch"  >
-        <Grid item xs={11}>
+        <Grid item xs={11} md={8} lg={7}>
           <Paper  className={classes.paper}>
           <Typography variant="h4" >
               {this.props.title}
           </Typography>
  
-          <ResponsiveContainer width='95%' aspect={2/1} >
+          <ResponsiveContainer width='95%'  minHeight={300} >
             <LineChart  >
               <Line type="monotone" name="2019" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} strokeWidth={2} />
               <Line type="monotone" name="2018" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#d8ce84"  strokeDasharray="5 5" dot={false} />
