@@ -265,7 +265,7 @@ class SampleStats extends Component {
               {this.props.title}
           </Typography>
  
-          <ResponsiveContainer width='95%'  minHeight={300} >
+          <ResponsiveContainer width='95%'  minHeight={280} >
             <LineChart  >
               <Line type="monotone" name="2019" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} strokeWidth={2} />
               <Line type="monotone" name="2018" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#d8ce84"  strokeDasharray="5 5" dot={false} />
