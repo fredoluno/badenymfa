@@ -11,7 +11,10 @@ import moment from 'moment'
 import Button from '@material-ui/core/Button';
 import ReactGA from 'react-ga';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {SAMPLE_DB} from './NymfaSettings'
+import {SAMPLE_DB} from './NymfaSettings';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 
 
@@ -27,6 +30,10 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+  },
+  s2018s:{
+    
+    margin: 'auto',
   },
 
   freddan:{
@@ -51,12 +58,16 @@ const styles = theme => ({
 
 
 class SampleStats extends Component {
-  state = { data: null };
+    
+  state = { data: null,
+            s2018:false};
+  
   constructor(props) {
     super(props);
   this.today = this.today.bind(this);
   this.sevenDay = this.sevenDay.bind(this);
   this.thirtyDay = this.thirtyDay.bind(this);
+  this.s2018clicked = this.s2018clicked.bind(this);
   }
 
   async hentData(startDato, formatX, buttonC){
@@ -74,17 +85,17 @@ class SampleStats extends Component {
     
 
     const result = await firestore.collection(SAMPLE_DB).where('published', '>', startDato).get(); 
-    const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
+    //const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
     
     var data = {};
+    data.startDato = startDato;
     data.dataSamples =this.getDataSamples(result,0);
-    data.dataSamplesCompare =this.getDataSamples(result2, CompareDays);
+    //data.dataSamplesCompare =this.getDataSamples(result2, CompareDays);
     data.formatX = formatX;
     data.buttonC = buttonC;
+    this.set2018(data);
 
-    this.setState({
-      data: data,
-    });
+    
   }
 
   getDataSamples(result, daysOff){
@@ -119,11 +130,7 @@ class SampleStats extends Component {
   
   
   componentDidMount() {
-    //var startDato = new Date();
-    //startDato.setDate(startDato.getDate() - 7);
-    //console.log("StartDato ",startDato);
-    //this.hentData(startDato, 'D/M HH:mm', this.buttonDefault());
-    //this.today();
+    
     this.sevenDay();
   }
 
@@ -149,6 +156,23 @@ class SampleStats extends Component {
     this.setTrack('Today');
   }
 
+  getLocalData()
+  {
+     var data = localStorage.getItem("stat2018");
+    console.log("data from storage " + data)
+    
+    if(data ===undefined)
+      data = false;
+
+    return JSON.parse(data);
+    
+  }
+  setLocalData(local2018)
+  {
+    console.log("setting data " + local2018 );
+      localStorage.setItem("stat2018", local2018);    
+  }
+
   sevenDay(){
     var startDato = new Date();
     startDato.setDate(startDato.getDate() - 7);
@@ -167,6 +191,58 @@ class SampleStats extends Component {
     this.hentData(startDato, 'D/M HH:mm',buttonC);
     this.setTrack('Thirty Days');
   }
+
+
+
+  async set2018(data){
+    var s2018 = this.getLocalData();
+
+    if (!s2018){
+      data.dataSamplesCompare= null;
+      console.log("YEAH");  
+    }else{
+      const CompareDays = 365;
+      
+      var startDato = data.startDato;
+      console.log(startDato);
+      var previousStartDate = new Date(startDato);
+      previousStartDate.setDate(startDato.getDate() - CompareDays);
+      var previousEndDate = new Date();
+      
+      previousEndDate.setDate(previousEndDate.getDate() - CompareDays);
+
+      const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
+      
+      console.log(result2.length);
+      data.dataSamplesCompare =this.getDataSamples(result2, CompareDays);
+      
+      console.log("set2018");
+    }
+    console.log(data);
+    this.setState({
+      data: data,
+      s2018: s2018,
+    });
+
+
+  }
+
+  s2018clicked(){
+    var data = this.state.data;
+    var s2018 = this.state.s2018;
+    console.log("s2018clicked " + s2018);
+    if(s2018){
+      console.log("s2018 er sann, setter false");
+      this.setLocalData(false);
+    }
+    else{
+      this.setLocalData(true);
+      
+    }
+    this.set2018(data);
+
+  }
+  
 
   buttonDefault(){
     var buttonC = {};
@@ -188,9 +264,9 @@ class SampleStats extends Component {
               {this.props.title}
           </Typography>
  
-          <ResponsiveContainer width='95%' aspect={5/2} >
+          <ResponsiveContainer width='95%' aspect={2/1} >
             <LineChart  >
-              <Line type="monotone" name="2019" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} />
+              <Line type="monotone" name="2019" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} strokeWidth={2} />
               <Line type="monotone" name="2018" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#d8ce84"  strokeDasharray="5 5" dot={false} />
               <YAxis type="number" domain = {['auto', 'auto']}/>
               <XAxis
@@ -198,7 +274,7 @@ class SampleStats extends Component {
               type='number'
               domain={['dataMin', 'dataMax']}
               tickFormatter = {(unixTime) => moment(unixTime).format(this.state.data.formatX)} />
-              <Legend />
+              { this.state.s2018 ? <Legend /> : null }
           </LineChart>
           </ResponsiveContainer>
          
@@ -211,6 +287,20 @@ class SampleStats extends Component {
             <Button color={this.state.data.buttonC.thirty} variant="contained"  onClick={this.thirtyDay} className={classes.button}>
               30 dager
             </Button>
+
+            <FormGroup row>
+        <FormControlLabel 
+          className={classes.s2018s} 
+          control={
+            <Switch
+              checked={this.state.s2018}
+              onChange={this.s2018clicked}
+              value="2018"
+            />
+          }
+          label="Sammenlign med 2018"
+        />
+        </FormGroup>
           </Paper>
       </Grid>    
     </Grid>
