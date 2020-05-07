@@ -310,7 +310,7 @@ class SampleStats extends Component {
               value="2018"
             />
           }
-          label="Sammenlign med 2018"
+          label="Sammenlign med tidligere år"
         />
         </FormGroup>
           </Paper>
