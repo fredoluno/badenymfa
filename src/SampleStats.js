@@ -199,9 +199,11 @@ class SampleStats extends Component {
 
     if (!s2018){
       data.dataSamplesCompare= null;
+      data.dataSamplesCompare2= null;
       console.log("YEAH");  
     }else{
       const CompareDays = 365;
+      const CompareDays2 = 730;
       
       var startDato = data.startDato;
       console.log(startDato);
@@ -211,10 +213,18 @@ class SampleStats extends Component {
       
       previousEndDate.setDate(previousEndDate.getDate() - CompareDays);
 
-      const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
+      var previousStartDate2 = new Date(startDato);
+      previousStartDate2.setDate(startDato.getDate() - CompareDays2);
+      var previousEndDate2 = new Date();
       
+      previousEndDate2.setDate(previousEndDate2.getDate() - CompareDays2);
+
+      const result2 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate).where('published', '<', previousEndDate).get();
+      const result3 = await firestore.collection(SAMPLE_DB).where('published', '>', previousStartDate2).where('published', '<', previousEndDate2).get();
+ 
       console.log(result2.length);
       data.dataSamplesCompare =this.getDataSamples(result2, CompareDays);
+      data.dataSamplesCompare2 =this.getDataSamples(result3, CompareDays2);
       
       console.log("set2018");
     }
@@ -267,8 +277,9 @@ class SampleStats extends Component {
  
           <ResponsiveContainer width='95%'  minHeight={280} >
             <LineChart  >
-              <Line type="monotone" name="2019" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} strokeWidth={2} />
-              <Line type="monotone" name="2018" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#d8ce84"  strokeDasharray="5 5" dot={false} />
+              <Line type="monotone" name="2020" data={this.state.data.dataSamples} dataKey={this.props.measure} stroke="#8884d8" dot={false} strokeWidth={2} />
+              <Line type="monotone" name="2019" data={this.state.data.dataSamplesCompare} dataKey={this.props.measure} stroke="#d884ae"  strokeDasharray="5 5" dot={false} />
+              <Line type="monotone" name="2018" data={this.state.data.dataSamplesCompare2} dataKey={this.props.measure} stroke="#d8ce84"  strokeDasharray="5 5" dot={false} />
               <YAxis type="number" domain = {['auto', 'auto']}/>
               <XAxis
               dataKey = 'number'
