@@ -73,7 +73,7 @@ class WeatherCard extends Component {
                 Værvarsel fra <ReactGA.OutboundLink 
                 eventLabel="YR"
                 to={this.state.data.link}
-              target="_blank">Yr levert av Meteorologisk institutt og NRK</ReactGA.OutboundLink>.<br/> Gjelder fra {this.state.data.time.from.toDate().toLocaleTimeString()} til {this.state.data.time.to.toDate().toLocaleTimeString()}
+              target="_blank">Yr levert av Meteorologisk institutt og NRK</ReactGA.OutboundLink>.<br/> Gjelder for {this.state.data.time.from.toDate().toLocaleDateString()} fra {this.state.data.time.from.toDate().toLocaleTimeString()} til {this.state.data.time.to.toDate().toLocaleTimeString()}
                 </Typography>
         </Grid>       
       </Grid>       

@@ -182,7 +182,7 @@ exports.nymfa = functions.https.onRequest((req, res) => {
 });
 
 exports.hentYr = functions.https.onRequest((req, res) => {
-  console.log("Hent Værdata");
+  console.log("Hent Værdata - nytt forsøk med oppdatert");
   request('https://www.yr.no/sted/Norge/Akershus/Ullensaker/Nordbytjernet/varsel.xml', (error, response, body) => {
     console.log('error:', error); // Print the error if one occurred
     //console.log('body:', body); // Print the HTML for the Google homepage.
@@ -228,7 +228,7 @@ exports.hentYr = functions.https.onRequest((req, res) => {
         }
         // legg til hele fila;  
         //weather.complete = result;
-
+        
         console.log("ISOString" + weather.lastupdate.toISOString());
         weatherRef.doc(weather.lastupdate.toISOString()).set(weather);
         //result.lastupdate = result.weatherdata.meta[0].lastupdate[0];
