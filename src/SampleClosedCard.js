@@ -61,13 +61,16 @@ class SampleCard extends Component {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" align="center" gutterBottom>
-          Badenymfa kommer også i 2019.
+          <ReactGA.OutboundLink 
+                eventLabel="rapport"
+                to="https://datastudio.google.com/s/lsLmHHh4B9g"
+              target="_blank">Årets rapport finner du her</ReactGA.OutboundLink>
           </Typography>      
           <Typography align="center" gutterBottom>
-Da satser vi på å få ut badenymfa i år også. Jeg poster på <ReactGA.OutboundLink 
+          Takk for i år. Vi sees igjen i 2021. For info om når den er på plass igjen så følg med på <ReactGA.OutboundLink 
                 eventLabel="facebook"
                 to="https://www.facebook.com/badenymfa"
-              target="_blank">facebook</ReactGA.OutboundLink> så snart den er ute. Følg med der.
+              target="_blank">facebook</ReactGA.OutboundLink>.
           </Typography>
         </Grid>
       

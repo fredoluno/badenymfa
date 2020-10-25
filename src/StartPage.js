@@ -1,5 +1,6 @@
 import React from 'react';
 import SampleCard  from './SampleCard';
+import SampleClosedCard  from './SampleClosedCard';
 import WeatherCard  from './WeatherCard';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
@@ -34,7 +35,7 @@ function StartPage(props) {
             </Typography>
             </Grid>
             <Grid item xs={11} sm={5} md={4} >
-                <SampleCard />
+               <SampleClosedCard />
             </Grid>
             <Grid item xs={11} sm={5} md={4} >
                 <WeatherCard />

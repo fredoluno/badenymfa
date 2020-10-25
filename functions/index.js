@@ -24,8 +24,8 @@ admin.initializeApp(functions.config().firebase);
 
 
 
-const samplesCollection = 'samples';
-//const samplesCollection = 'samples-offseason';
+//const samplesCollection = 'samples';
+const samplesCollection = 'samples-offseason';
 
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
   const pubSubMessage = event.data ? Buffer.from(event.data, 'base64').toString() : null;
