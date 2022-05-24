@@ -63,11 +63,11 @@ class SampleCard extends Component {
           <Typography variant="h6" align="center" gutterBottom>
           <ReactGA.OutboundLink 
                 eventLabel="rapport"
-                to="https://datastudio.google.com/s/lsLmHHh4B9g"
+                to="https://datastudio.google.com/reporting/1qNqo8Ay9LwAoKWyzZO_zmjBWWMrfBhAB/page/VjI4"
               target="_blank">Årets rapport finner du her</ReactGA.OutboundLink>
           </Typography>      
           <Typography align="center" gutterBottom>
-          Takk for i år. Vi sees igjen i 2021. For info om når den er på plass igjen så følg med på <ReactGA.OutboundLink 
+          Takk for i år. Vi sees igjen i 2022. For info om når den er på plass igjen så følg med på <ReactGA.OutboundLink 
                 eventLabel="facebook"
                 to="https://www.facebook.com/badenymfa"
               target="_blank">facebook</ReactGA.OutboundLink>.

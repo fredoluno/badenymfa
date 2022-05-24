@@ -35,11 +35,9 @@ function StartPage(props) {
             </Typography>
             </Grid>
             <Grid item xs={11} sm={5} md={4} >
-               <SampleClosedCard />
+               <SampleCard />
             </Grid>
-            <Grid item xs={11} sm={5} md={4} >
-                <WeatherCard />
-            </Grid>    
+            
         </Grid>
       </div>
     );

@@ -20,7 +20,7 @@ const NymfaTheme = createMuiTheme({
     useNextVariants: true,
     h1:{
       color: 'rgba(0, 0, 0, 0.54)'
-    },
+    },  
     h2:{
       color: 'rgba(0, 0, 0, 0.54)'
     },
