@@ -12,8 +12,8 @@
   "dependencies": {
     "@google-cloud/bigquery": "^2.1.0",
     "fast-xml-parser": "^3.12.16",
-    "firebase-admin": "^8.12.1",
-    "firebase-functions": "^3.6.1",
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^3.24.1",
     "got": "^10.7.0",
     "request": "^2.88.0",
     "xml2js": "^0.4.19",
