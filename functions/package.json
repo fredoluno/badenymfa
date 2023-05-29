@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@google-cloud/bigquery": "^6.2.0",
+    "axios": "^1.4.0",
     "fast-xml-parser": "^3.12.16",
     "firebase-admin": "^11.8.0np",
     "firebase-functions": "^4.4.0",
     "request": "^2.88.0"
-    
   },
   "devDependencies": {
     "eslint": "^8.41.0",

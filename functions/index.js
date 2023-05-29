@@ -1,13 +1,6 @@
 const functions = require('firebase-functions');
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
 const admin = require('firebase-admin');
+const axios = require('axios');
 
 //const BigQuery = require('@google-cloud/bigquery');
 const {BigQuery} = require('@google-cloud/bigquery');
@@ -126,8 +119,39 @@ exports.justerData = functions.https.onRequest((req, res) => {
 });
 
 exports.testYr = functions.https.onRequest((req, res) => {
+  console.log('Skikkelig enkel test');
+  try {
+  
+    var ref = admin.firestore().collection('nymfaSettings').doc("keys");
+    var getDoc = ref.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+        return 0;
+      } else {
+        var yrData = getYRData(14.2,"2023-05-29T09:00:00+02:00");
+        var apiene = doc.data();
+        postToYR(yrData,apiene.yr);
 
-console.log('Skikkelig enkel test',err);
+       
+        console.log("dataviskalsende: " + JSON.stringify(yrData));
+        return res.status(200).json(yrData);
+        
+
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+  
+  } catch (e) {
+    console.error(' error', e);
+  }
+  return -1;
+  
+
+
+
 
 });
 
@@ -194,32 +218,76 @@ exports.sampleToBigQ = functions.firestore
 
 
 
-function getDateNoTime(time){
-  time.from = new Date(time.from+"+02:00");
-  time.to = new Date(time.to+"+02:00");
- return time;
+  exports.sendYrData = functions.firestore
+  .document("/samples/{sampleID}")
+  .onCreate((event, context) => {
+    console.log("sendYrData",event.data() );
+    var data = event.data();
+    var dataToYr = getYRData(data.tw, data.published_at);
+    console.log("dataviskalsende: " + JSON.stringify(dataToYr));
+
+    try {
+  
+      var ref = admin.firestore().collection('nymfaSettings').doc("keys");
+      var getDoc = ref.get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('No such document!');
+          return;
+        } else {
+          
+          var apiene = doc.data();
+          postToYR(dataToYr,apiene.yr);
+          console.log("hentet nøkkel og postet");
+          return;
+        }
+      })
+      .catch(err => {
+        console.log('Error getting document', err);
+      });
+    
+    } catch (e) {
+      console.error(' error', e);
+    }
+    
+    return;
+  });
+
+
+
+function getYRData(temp, date){
+ return [ 
+    {
+      "name": "Nordbytjernet",
+      "lat": 60.15676,
+      "lon": 11.16533,
+      "heatedWater": false,
+      "temperature": temp,
+      "time": date
+    }
+  ];
+  
 }
 
-function getSettings()
-{
-  var ref = admin.firestore().collection('nymfaSettings').doc("settings");
-    var getDoc = ref.get()
-    .then(doc => {
-      if (!doc.exists) {
-        console.log('No such document!');
-        var dataene = new Object() ;
-        dataene.waitfor = 60*30;
-        dataene.awake= 0;
-        return dataene;
-      } else {
-        var frabasen = doc.data();
-        console.log('Document data:',frabasen );
-        
-        return frabasen;
-      }
-    })
-    .catch(err => {
-      console.log('Error getting document', err);
-    });
+function postToYR(postData,apikey){
+  //var url = "https://yr-api-badetemperaturer-dev.dev.yr.azure.nrk.cloud/api/registrere";
+  var url ="https://badetemperaturer.yr.no/api/registrere"
+
+  axios.post(url, postData,{
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': apikey
+    }
+  })
+  .then(function (response) {
+    console.log("test OK");
+    console.log(response.data);
+    return;
+  })
+  .catch(function (error) {
+    console.log(error);
+    return;
+  });
 }
+
 
