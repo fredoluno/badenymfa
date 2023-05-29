@@ -10,22 +10,20 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "@google-cloud/bigquery": "^2.1.0",
+    "@google-cloud/bigquery": "^6.2.0",
     "fast-xml-parser": "^3.12.16",
-    "firebase-admin": "^8.12.1",
-    "firebase-functions": "^3.6.1",
-    "got": "^10.7.0",
-    "request": "^2.88.0",
-    "xml2js": "^0.4.19",
-    "yr.no-forecast": "^2.1.0"
+    "firebase-admin": "^11.8.0np",
+    "firebase-functions": "^4.4.0",
+    "request": "^2.88.0"
+    
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "firebase-functions-test": "^0.1.6"
+    "eslint": "^8.41.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "firebase-functions-test": "^3.1.0"
   },
   "engines": {
-    "node": "8"
+    "node": "18"
   },
   "private": true
 }
