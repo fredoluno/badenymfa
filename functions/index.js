@@ -16,8 +16,9 @@ admin.initializeApp(functions.config().firebase);
 
 
 
-//const samplesCollection = 'samples';
-const samplesCollection = 'samples-offseason';
+const samplesCollection = 'samples';
+//const samplesCollection = 'samples-offseason';
+const samplesCollectionOffSeason = 'samples-offseason';
 
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
   const pubSubMessage = event.data ? Buffer.from(event.data, 'base64').toString() : null;
@@ -31,8 +32,17 @@ exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) 
   try {
     var dataene = Object.assign(JSON.parse(pubSubMessage), event.attributes);
     dataene.published = new Date(dataene.published_at);
-    console.log("fra Nymfa",dataene);    
-   return admin.firestore().collection(samplesCollection).doc().set(dataene);
+    console.log("fra Nymfa",dataene);   
+    
+    if(dataene.device_id ==="3e0032000c51343334363138"){
+      console.log("dette er den som er i prod. Setter dataene i prod");
+      return admin.firestore().collection(samplesCollection).doc().set(dataene);
+    }
+   
+    console.log("Logger data i off season siden jeg ikke er prod decvice");
+      
+   
+    return admin.firestore().collection(samplesCollectionOffSeason).doc().set(dataene);
    
     
   } catch (e) {
