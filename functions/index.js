@@ -16,9 +16,10 @@ admin.initializeApp(functions.config().firebase);
 
 
 
-const samplesCollection = 'samples';
-//const samplesCollection = 'samples-offseason';
+//const samplesCollection = 'samples';
+const samplesCollection = 'samples-offseason';
 const samplesCollectionOffSeason = 'samples-offseason';
+const samplesCollectionOther= 'samples-';
 
 exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) => {
   const pubSubMessage = event.data ? Buffer.from(event.data, 'base64').toString() : null;
@@ -42,7 +43,7 @@ exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) 
     console.log("Logger data i off season siden jeg ikke er prod decvice");
       
    
-    return admin.firestore().collection(samplesCollectionOffSeason).doc().set(dataene);
+    return admin.firestore().collection(samplesCollectionOther+dataene.device_id).doc().set(dataene);
    
     
   } catch (e) {
