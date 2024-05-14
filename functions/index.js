@@ -37,8 +37,8 @@ exports.addSamples = functions.pubsub.topic('hent-fra-nymfa').onPublish((event) 
     
     if(dataene.device_id ==="3e0032000c51343334363138"){
       console.log("dette er den som er i prod. Setter dataene i prod");
-      if(dataene.tw < 1)
-        {admin.firestore().collection(samplesCollectionOffSeason).doc().set(dataene); }
+      if(dataene.tw < 1){
+        return admin.firestore().collection(samplesCollectionOffSeason).doc().set(dataene); }
 
       return admin.firestore().collection(samplesCollection).doc().set(dataene);
     }
